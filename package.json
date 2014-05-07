@@ -1,0 +1,21 @@
+{
+	"name": "CANHost",
+	"version": "0.0.2",
+	"author": {
+		"name": "Tyler Scott",
+		"email": "tyduptyler13@yahoo.com",
+		"url": "http://myuplay.com"
+	},
+	"description": "Custom interface for CANUI",
+	"engines": {
+		"node": "~0.10.28"
+	},
+	"dependencies": {},
+	"scripts": {
+		"start": "node CANHost.js",
+		"install": "node-gyp rebuild"
+	},
+	"devDependencies": {},
+	"optionalDependencies": {}
+}
+
