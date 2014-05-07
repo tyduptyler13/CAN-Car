@@ -2,7 +2,10 @@
  * 
  */
 
-var CI = require('./build/Release/CANInterface');
+var CI = require('bindings')('CANInterface');
+var IO = require('socket.io').listen(8001);
 
-console.log(CI.hello());
+//TODO
+
+console.log(CI.testChannel());
 

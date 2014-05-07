@@ -3,3 +3,4 @@
 .classpath
 .jshintrc
 build/
+node_modules/
