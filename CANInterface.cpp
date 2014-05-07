@@ -1,9 +1,20 @@
 #include <node.h>
 #include <v8.h>
 
+#include <iostream>
+#include <stdio.h>
+#include <array>
+#include <fstream>
+#include <string>
 #include "canlib.h"
+#include <sstream>
 
+using namespace System;
+double dataArray[14] = { 0.0 };
+using namespace std;
 using namespace v8;
+
+
 
 Handle<Value> Method(const Arguments& args){
 	HandleScope scope;

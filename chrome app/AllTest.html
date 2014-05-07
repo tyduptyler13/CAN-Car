@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <!--Call JavaScript files-->
+    <link href="css/main.css" rel='stylesheet' />
+    <script src="js/energy_chart.js"></script>
+    <script src="js/jquery-2.1.0.min.js"></script>
+    <script src="js/Chartjs.js"></script>
+
+    <title>jQuery Tabs Demo</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        html {
+            font-family: sans-serif;
+            font-size: 14px;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        p, h3 {
+            margin-bottom: 15px;
+        }
+
+        div {
+            height: 100%;
+        }
+        /*Create Top Tabs into list and give them properties*/
+        .TopTabs li {
+            list-style: none;
+            display: inline;
+        }
+
+        .TopTabs {
+            font-size: 18pt;
+            text-align: center;
+            color: black;
+            line-height: 60px;
+            min-width: 30px;
+            max-height: 50px;
+        }
+
+            .TopTabs a {
+                padding-right: 0px;
+                padding-left: 0px;
+                font-size: 18pt;
+                color: #000;
+                /*
+            display: inline-block;
+            width: 200px;
+            height: 178px;
+            color: #000;
+            text-decoration: none;
+            */
+            }
+
+        .HomeTab {
+            float: left;
+            position: absolute;
+            width: 16.66%;
+            height: 18%;
+            left: 0px;
+            top: 0px;
+        }
+
+        .SettingsTab {
+            float: left;
+            position: absolute;
+            width: 16.66%;
+            height: 18%;
+            left: 16.66%;
+            top: 0px;
+        }
+
+        .MusicTab {
+            float: left;
+            position: absolute;
+            width: 16.66%;
+            height: 18%;
+            left: 33.33%;
+            top: 0px;
+        }
+
+        .HVACTab {
+            float: left;
+            position: absolute;
+            width: 16.66%;
+            height: 18%;
+            left: 50%;
+            top: 0px;
+        }
+
+        .NavigationTab {
+            float: left;
+            position: absolute;
+            width: 16.66%;
+            height: 18%;
+            left: 66.66%;
+            top: 0px;
+        }
+
+        .DataTab {
+            float: left;
+            position: absolute;
+            width: 16.66%;
+            height: 18%;
+            left: 83.33%;
+            top: 0px;
+        }
+
+        .Sub_Tabs {
+            height: 8%;
+            width: 14%;
+            position: relative;
+            left: 2%;
+            top: 5%;
+        }
+
+        .Sub_Tab_Home {
+            background-color: #CCFF99;
+            border-style: solid;
+        }
+
+        .Sub_Tab_Settings {
+            background-color: #3385D6;
+            border-style: solid;
+        }
+
+        .Sub_Tab_Music {
+            background-color: #944DFF;
+            border-style: solid;
+        }
+
+        .Sub_Tab_HVAC {
+            background-color: #FF8080;
+            border-style: solid;
+        }
+
+        .Sub_Tab_Nav {
+            background-color: #FFB547;
+            border-style: solid;
+        }
+
+        .Sub_Tab_Data {
+            background-color: #FFFFC2;
+            border-style: solid;
+        }
+
+        .Body_Container {
+            position: absolute;
+            top: 18%;
+            left: 0%;
+            width: 100%;
+            height: 66%;
+        }
+
+        .TopTabs .HomeTab, #HomeBody {
+            background-color: #A4F750;
+        }
+
+        .TopTabs .SettingsTab, #SettingsBody {
+            background-color: #65C9EB;
+        }
+
+        .TopTabs .MusicTab, #MusicBody {
+            background-color: #B88CE3;
+        }
+
+        .TopTabs .HVACTab, #HVACBody {
+            background-color: #F98C8C;
+        }
+
+        .TopTabs .NavigationTab, #NavigationBody {
+            background-color: #FDBE60;
+        }
+
+        .TopTabs .DataTab, #DataBody {
+            background-color: #F7F785;
+        }
+
+        .TopTabImage_Home {
+            width: 100px;
+            height: 100px;
+            padding-top: 15%;
+        }
+
+        .TopTabImage_Settings {
+	    width: 100px;
+	    height: 100px;
+            padding-top: 15%;
+        }
+
+        .TopTabImage_Music {
+            width: 100px;
+            height: 100px;
+            padding-top: 15%;
+        }
+
+        .TopTabImage_HVAC {
+            width: 100px;
+            height: 100px;
+            padding-top: 15%;
+        }
+
+        .TopTabImage_Nav {
+            width: 100px;
+            height: 100px;
+            padding-top: 15%;
+        }
+
+        .TopTabImage_Data {
+            width: 100px;
+            height: 100px;
+            padding-top: 15%;
+        }
+    </style>
+    <script src="js/jquery-2.1.0.min.js"></script>
+    <!--<script>
+        
+        //var nativeobject = CANComponent.Class1();
+        //var object = nativeobject.main(); //collect CAN information, store it in file
+        
+        //Original parameter helloString.data, "Title"
+        (new Windows.UI.Popups.MessageDialog(object, "The current handle number is: ")).showAsync().done();
+    </script>-->
+
+    <script>
+        // Wait until the DOM has loaded before querying the document
+        $(document).ready(function () {
+            $('ul.TopTabs').each(function () {
+                // For each set of tabs, we want to keep track of
+                // which tab is active and it's associated content
+                var $active, $content, $links = $(this).find('a');
+
+                // If the location.hash matches one of the links, use that as the active tab.
+                // If no match is found, use the first link as the initial active tab.
+                $active = $($links.filter('[href="' + location.hash + '"]')[0] || $links[0]);
+                $active.addClass('active');
+
+                $content = $($active[0].hash);
+
+                // Hide the remaining content
+                $links.not($active).each(function () {
+                    $(this.hash).hide();
+                });
+
+                // Bind the click event handler
+                $(this).on('click', 'a', function (e) {
+                    // Make the old tab inactive.
+                    $active.removeClass('active');
+                    $content.hide();
+
+                    // Update the variables with the new link and content
+                    $active = $(this);
+                    $content = $(this.hash);
+
+                    // Make the tab active.
+                    $active.addClass('active');
+                    $content.show();
+
+                    // Prevent the anchor's default click action
+                    e.preventDefault();
+                });
+            });
+        });
+    </script>
+</head>
+<body style = "overflow:hidden">
+
+    <ul class='TopTabs'>
+        <li>
+            <a href='#HomeBody' class="HomeTab">
+
+                <img src='images/Home Settings Img.png' alt='Home Symbol' class='TopTabImage_Home'>
+                <div class="Lable">HOME</div>
+            </a>
+        </li>
+        <li>
+            <a href='#SettingsBody' class="SettingsTab">
+                <img src='images/Settings_Edited.png' alt='Settings Symbol' class='TopTabImage_Settings'>
+                <div class="Lable">SETTINGS</div>
+            </a>
+        </li>
+        <li>
+            <a href='#MusicBody' class="MusicTab">
+                <img src='images/Music_Edited.png' alt='Music Symbol' class='TopTabImage_Music'>
+                <div class="Lable">MUSIC</div>
+            </a>
+        </li>
+        <li>
+            <a href='#HVACBody' class="HVACTab">
+                <img src='images/HVAC_Edited.png' alt='HVAC Symbol' class='TopTabImage_HVAC'>
+                <div class="Lable">HVAC </div>
+            </a>
+        </li>
+        <li>
+            <a href='#NavigationBody' class="NavigationTab">
+                <img src='images/Navigation_Edited.png' alt='Navigation Symbol' class='TopTabImage_Nav'>
+                <div class="Lable">NAVIGATE</div>
+            </a>
+        </li>
+        <li>
+            <a href='#DataBody' class="DataTab">
+                <img src='images/Energy_Edited.png' alt='Data Symbol' class='TopTabImage_Data'>
+                <div class="Lable">DATA</div>
+            </a>
+        </li>
+    </ul>
+
+
+    <div class="Body_Container">
+        <div id='HomeBody'>
+
+            <div class='Sub_Tabs'>
+                <div class='Sub_Tab_Home'>
+                    <div class='Sub_Tab_Home' id="Tab_1">
+                        <h2>Tab 1</h2>
+                    </div>
+                    <br />
+                    <br />
+                    <div class='Sub_Tab_Home' id="Tab_2">
+                        <h2>Tab 2</h2>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="Sub_Tab_Home" id="Tab_3">
+                        <h2>Tab 3</h2>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="Sub_Tab_Home" id="Tab_4">
+                        <h2>Tab 4</h2>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="Sub_Tab_Home" id="Tab_5">
+                        <h2>Tab 5</h2>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="Sub_Tab_Home" id="Tab_6">
+                        <h2>Tab 6</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div id='SettingsBody'>
+
+            <div class='Sub_Tabs'>
+                <div class='Sub_Tab_Settings'>
+                    <div class='Sub_Tab_Settings' id="Tab_1">
+                       
+                    </div>
+                    <br />
+                    <br />
+                    <div class='Sub_Tab_Settings' id="Tab_2">
+                        <h2>Tab 2</h2>
+                    </div>
+                    <br />
+                    <br />
+                    <div class='Sub_Tab_Settings' id="Tab_3">
+                        <h2>Tab 3</h2>
+                    </div>
+                    <br />
+                    <br />
+                    <div class='Sub_Tab_Settings' id="Tab_4">
+                        <h2>Tab 4</h2>
+                    </div>
+                    <br />
+                    <br />
+                    <div class='Sub_Tab_Settings' id="Tab_5">
+                        <h2>Tab 5</h2>
+                    </div>
+                    <br />
+                    <br />
+                    <div class='Sub_Tab_Settings' id="Tab_6">
+                        <h2>Tab 6</h2>
+                    </div>
+                </div>
+            </div>
+            <div id="ColorWheel" style="width: 70%; height:100%; left:30%; top:0%; position:absolute;">
+            </div>
+
+            
+            <button class="Colors" id="HomeColor" style="width: 20%; top:5%; left:30%;">Home Color</button>
+            <button class="Colors" id="SettingColor" style="width: 20%; top:20%; left:30%;">Setting Color</button>
+            <button class="Colors" id="MusicColor" style="width: 20%; top:35%; left:30%;">Music Color</button>
+            <button class="Colors" id="HVACColor" style="width: 20%; top:50%; left:30%;">HVAC Color</button>
+            <button class="Colors" id="NavigateColor" style="width: 20%; top:65%; left:30%;">Navigate Color</button>
+            <button class="Colors" id="DataColor" style="width: 20%; top:80%; left:30%;">Data Color</button>
+            
+            <div class="Colors" id="Green1" style="width:10%; top:5%; left:50%; background-color: #99FF99;"></div>
+            <div class="Colors" id="Green2" style="width:10%; top:5%; left:60%; background-color: #66FF66;"></div>
+            <div class="Colors" id="Green3" style="width:10%; top:5%; left:70%; background-color: #33CC33;"></div>
+            <div class="Colors" id="Green4" style="width:10%; top:5%; left:80%; background-color: #009933;"></div>
+            <div class="Colors" id="Green5" style="width:10%; top:5%; left:90%; background-color: #336600;"></div>
+
+            <div class="Colors" id="Blue1" style="width:10%; top:20%; left:50%; background-color: #66FFFF;"></div>
+            <div class="Colors" id="Blue2" style="width:10%; top:20%; left:60%; background-color: #33CCFF;"></div>
+            <div class="Colors" id="Blue3" style="width:10%; top:20%; left:70%; background-color: #0099FF;"></div>
+            <div class="Colors" id="Blue4" style="width:10%; top:20%; left:80%; background-color: #0033CC;"></div>
+            <div class="Colors" id="Blue5" style="width:10%; top:20%; left:90%; background-color: #000099;"></div>
+
+            <div class="Colors" id="Purple1" style="width:10%; top:35%; left:50%; background-color: #CC99FF;"></div>
+            <div class="Colors" id="Purple2" style="width:10%; top:35%; left:60%; background-color: #9999FF;"></div>
+            <div class="Colors" id="Purple3" style="width:10%; top:35%; left:70%; background-color: #9966FF;"></div>
+            <div class="Colors" id="Purple4" style="width:10%; top:35%; left:80%; background-color: #9933FF;"></div>
+            <div class="Colors" id="Purple5" style="width:10%; top:35%; left:90%; background-color: #6600CC;"></div>
+
+            <div class="Colors" id="Red1" style="width:10%; top:50%; left:50%; background-color: #FF0066;"></div>
+            <div class="Colors" id="Red2" style="width:10%; top:50%; left:60%; background-color: #FF5050;"></div>
+            <div class="Colors" id="Red3" style="width:10%; top:50%; left:70%; background-color: #FF0000;"></div>
+            <div class="Colors" id="Red4" style="width:10%; top:50%; left:80%; background-color: #CC0000;"></div>
+            <div class="Colors" id="Red5" style="width:10%; top:50%; left:90%; background-color: #990000;"></div>
+
+            <div class="Colors" id="Orange1" style="width:10%; top:65%; left:50%; background-color: #FFCC66;"></div>
+            <div class="Colors" id="Orange2" style="width:10%; top:65%; left:60%; background-color: #FFCC33;"></div>
+            <div class="Colors" id="Orange3" style="width:10%; top:65%; left:70%; background-color: #FF9933;"></div>
+            <div class="Colors" id="Orange4" style="width:10%; top:65%; left:80%; background-color: #FF9900;"></div>
+            <div class="Colors" id="Orange5" style="width:10%; top:65%; left:90%; background-color: #CC6600;"></div>
+        
+            <div class="Colors" id="Yellow1" style="width:10%; top:80%; left:50%; background-color: #FFFF99;"></div>
+            <div class="Colors" id="Yellow2" style="width:10%; top:80%; left:60%; background-color: #FFFF66;"></div>
+            <div class="Colors" id="Yellow3" style="width:10%; top:80%; left:70%; background-color: #FFFF00;"></div>
+            <div class="Colors" id="Yellow4" style="width:10%; top:80%; left:80%; background-color: #CC9900;"></div>
+            <div class="Colors" id="Yellow5" style="width:10%; top:80%; left:90%; background-color: #663300;"></div>
+
+            <script src="js/SettingsColorHandler.js"></script>
+        </div>
+
+
+        <div id='MusicBody'>
+
+            <div class='Sub_Tabs'>
+                <div class='Sub_Tab_Music'>
+                    <div class='Sub_Tab_Music' id="Tab_1">
+                        <h2>Tab 1</h2>
+                   
+                    </div>
+                    <br />
+                    <br />
+                    <div class='Sub_Tab_Music' id="Tab_2">
+                        <h2>Tab 2</h2>
+                    </div>
+                    <br />
+                    <br />
+                    <div class='Sub_Tab_Music' id="Tab_3">
+                        <h2>Tab 3</h2>
+                    </div>
+                    <br />
+                    <br />
+                    <div class='Sub_Tab_Music' id="Tab_4">
+                        <h2>Tab 4</h2>
+                    </div>
+                    <br />
+                    <br />
+                    <div class='Sub_Tab_Music' id="Tab_5">
+                        <h2>Tab 5</h2>
+                    </div>
+                    <br />
+                    <br />
+                    <div class='Sub_Tab_Music' id="Tab_6">
+                        <h2>Tab 6</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div id='HVACBody'>
+            <!--Buttons to activate HVAC controls-->
+            <button id="AC_Button" type="button" style=" font-size: 12pt; border-radius:8%; width: 25%; height: 15%; position: absolute; left: 37.5%; top: 5%; font-size: 30pt; text-align:center">
+               A/C Max
+            </button>
+            <button id="Pannel_Button" type="button" style="border-radius: 8%; width: 25%; height: 15%; position: absolute; left: 20%; top: 25%; font-size: 18pt;">
+               <img style="height:100%; width:80%" src="images/Fan Symbols Upper Vents.png">
+            </button>
+            <button id="Floor_Button" type="button" style="border-radius: 8%; width: 25%; height: 15%; position: absolute; left: 55%; top: 25%; font-size: 30pt;">
+                <img style="height:100%; width:80%" src="images/Fan Symbols Floor.png">
+            </button>
+            <button id="PanelFloor_Button" type="button" style="border-radius: 8%; width: 25%; height: 15%; position: absolute; left: 20%; top: 75%; font-size: 30pt;">
+                <img style="height:100%; width:80%" src="images/Fan Symbols Vents-Floor copy.png">
+            </button>
+            <button id="Defrost_Button" type="button" style="border-radius: 8%; width: 25%; height: 15%; position: absolute; left: 55%; top: 75%; font-size: 30pt;">
+                <img style="height:100%; width:80%" src="images/Defrost Copy.png">
+            </button>
+            <button id="FanUp" type="button" style="border-radius: 5%; width: 17%; height: 10%; position: absolute; left: 4%; top: 45%; font-size: 30pt;">
+                Up
+            </button>
+            <button id="FanDown" type="button" style="border-radius: 5%; width: 17%; height: 10%; position: absolute; left: 4%; top: 60%; font-size: 30pt;">
+                Down
+            </button>
+            <div id="Fan0" style="position:absolute; width: 8%; height: 15%; top: 48.5%; left: 25%; background-color: white;">
+            </div>
+            <div id="Fan1" style="position: absolute; width: 8%; height: 15%; top: 48.5%; left: 34%; background-color: white;">
+            </div>
+            <div id="Fan2" style="position: absolute; width: 8%; height: 15%; top: 48.5%; left: 43%; background-color: white;">
+            </div>
+            <div id="Fan3" style="position: absolute; width: 8%; height: 15%; top: 48.5%; left: 52%; background-color: white;">
+            </div>
+            <div id="Fan4" style="position: absolute; width: 8%; height: 15%; top: 48.5%; left: 61%; background-color: white;">
+            </div>
+            <div id="Fan5" style="position: absolute; width: 8%; height: 15%; top: 48.5%; left: 70%; background-color: white;">
+            </div>
+            <div id="Fan6" style="position: absolute; width: 8%; height: 15%; top: 48.5%; left: 79%; background-color: white;">
+            </div>
+            <div id="Fan7" style="position: absolute; width: 8%; height: 15%; top: 48.5%; left: 88%; background-color: white;">
+            </div>
+            <script src="js/HVACTabHandlers.js"></script>
+
+        </div>
+
+        <div id='NavigationBody'>
+
+            <div class='Sub_Tabs'>
+                <div class='Sub_Tab_Nav'>
+                    <div class='Sub_Tab_Nav' id="Tab_1">
+                        <h2>Tab 1</h2>
+                    </div>
+                    <br />
+                    <br />
+                    <div class='Sub_Tab_Nav' id="Tab_2">
+                        <h2>Tab 2</h2>
+                    </div>
+                    <br />
+                    <br />
+                    <div class='Sub_Tab_Nav' id="Tab_3">
+                        <h2>Tab 3</h2>
+                    </div>
+                    <br />
+                    <br />
+                    <div class='Sub_Tab_Nav' id="Tab_4">
+                        <h2>Tab 4</h2>
+                    </div>
+                    <br />
+                    <br />
+                    <div class='Sub_Tab_Nav' id="Tab_5">
+                        <h2>Tab 5</h2>
+                    </div>
+                    <br />
+                    <br />
+                    <div class='Sub_Tab_Nav' id="Tab_6">
+                        <h2>Tab 6</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id='DataBody'>
+
+            <div class='Sub_Tabs'>
+                <div class='Sub_Tab_Data'>
+                    <div class='Sub_Tab_Data' id="High_Voltage">
+                        <h2>High Voltage</h2>
+                    </div>
+                    <br />
+                    <br />
+                    <div class='Sub_Tab_Data' id="12V_Battery">
+                        <h2>Car Battery</h2>
+                    </div>
+                    <br />
+                    <br />
+                    <div class='Sub_Tab_Data' id="Hydrogen">
+                        <h2>Hydrogen</h2>
+                    </div>
+                    <br />
+                    <br />
+                    <div class='Sub_Tab_Data' id="EcoCAR">
+                        <h2>EcoCAR 2</h2>
+                    </div>
+                    <br />
+                    <br />
+                </div>
+            </div>
+
+            <div id="data0">
+            </div>
+
+            <div id="data1">
+            </div>
+            <div id="data2">
+
+            </div>
+            <div id="data3">
+
+            </div>
+            <div id="data4">
+
+            </div>
+            <div id="data5">
+
+            </div>
+            <div id="data6">
+
+            </div>
+
+            <div id='graph0'>
+                <canvas id="energy_canvas0" width="525" height="250"></canvas>
+            </div>
+
+            <div id='graph1'>
+                <canvas id="energy_canvas1" width="525" height="250"></canvas>
+            </div>
+
+            <script src="js/EnergyTabHandlers.js"></script>
+        </div>
+
+    </div>
+
+    <div class="Bottom_Bar">
+        <div id="Wifi">
+            <div id="WifiOn">
+                <img id="WifiImage" src="images/Wi-fi_off.png">
+            </div>
+            <div id="BlueTooth">
+                <img id="BlueToothImage" src="images/BlueTooth Off.png">
+            </div>
+        </div>
+        <div id="Volume">
+            <div id="VolumeUp">
+                <img id="VolumeUpImage" style="width:50px; height:50px; padding-top: 6%" src="images/Volume Up.png">
+            </div>
+            <div id="VolumeLv">
+                <img id="VolumeLevel" style="width:50px; height:50px; padding-top: 6%" src="images/Volume Mute copy.png">
+            </div>
+            <div id="VolumeDown">
+                <img style="width:50px; height:50px; padding-top: 6%" src="images/Volume Down.png">
+            </div>
+            
+        </div>
+        <div id="Battery">
+            <div id="Battery_Text"></div>
+            <div id="batteryImagePlace"><img id="batteryImage" src=""></div>
+        </div>
+        <div id="Clock">
+        </div>
+       
+
+        <script src="js/BottomBarHandler.js"></script>
+    </div>
+
+</body>
+
+</html>

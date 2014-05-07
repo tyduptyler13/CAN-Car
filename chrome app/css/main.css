@@ -1,0 +1,194 @@
+
+.Bottom_Bar {
+	border-top:solid;
+	position:absolute;
+	left:0px;
+	top:84%;
+	height:16%;
+	width:100%;
+}
+.Colors {
+    font-size: 28pt;
+    position: absolute;
+    height: 10%;
+    background-color: white;
+    text-align:center;
+
+}
+/* ID's:*/
+
+#data0 {
+    font-size: 26pt;
+    text-align: center;
+    background-color:#FFFFC2;
+    width:65%;
+    height:8%;
+    position:absolute;
+    left:30%;
+    top:5%;
+}
+
+#data1 {
+    font-size: 26pt;
+    text-align: center;
+    background-color:#FFFFC2;
+    width:65%;
+    height:8%;
+    position:absolute;
+    left:30%;
+    top:50%;
+}
+
+#graph0 {
+    position:absolute;
+	left:30%;
+    top:15%;
+}
+#graph1 {
+    Position:absolute;
+    left:30%;
+    top: 60%;
+}
+#data2 {
+    opacity: 0 ;
+    font-size: 26pt;
+    text-align: center;
+    background-color:#FFFFC2;
+    width:65%;
+    height:8%;
+    position:absolute;
+    left:30%;
+    top:15%;
+}
+#data3 {
+    opacity: 0 ;
+    font-size: 26pt;
+    text-align: center;
+    background-color:#FFFFC2;
+   width:65%;
+    height:8%;
+    position:absolute;
+    left:30%;
+    top:25%;
+}
+#data4 {
+    opacity: 0 ;
+    font-size: 26pt;
+    text-align: center;
+    background-color:#FFFFC2;
+    width:65%;
+    height:8%;
+    position:absolute;
+    left:30%;
+    top:35%;
+}
+#data5 {
+    opacity: 0 ;
+    font-size: 26pt;
+    text-align: center;
+    background-color:#FFFFC2;
+    width:65%;
+    height:8%;
+    position:absolute;
+    left:30%;
+    top:45%;
+}
+#data6 {
+    opacity: 0 ;
+    font-size: 26pt;
+    text-align: center;
+    background-color:#FFFFC2;
+    width:65%;
+    height:8%;
+    position:absolute;
+    left:30%;
+    top:65%;
+}
+#Clock {
+    font-size: 20pt;
+    height:30%;
+    width:33.3%;
+    top:70%;
+    left:33.3%;
+    text-align: center;
+    position:absolute;
+}
+#Battery {
+    font-size:20pt;
+    height: 70%;
+    width: 33.3%;
+    top: 0%;
+    left:33.3%;
+    position:absolute;
+}
+#batteryImage { 
+    padding-top: 10%;
+    padding-left: 20%;
+    height: 80%;
+    width: 60%;   
+}
+
+#Battery_Text {
+    text-align: center;
+    top: 0%;
+    height:0%;
+    width:100%;
+}
+#Wifi {
+    top: 0%;
+    left: 0%;
+    height:100%;
+    width: 10%;
+}
+#WifiOn {
+    top:0%;
+    left:0%;
+    height:50%;
+    width:100%;
+}
+#Bluetooth {
+    top: 50%;
+    left: 0%;
+    height: 50%;
+    width: 100%;
+}
+#WifiImage {
+    padding-top: 10%;
+    padding-left: 10%;
+    height:75px;
+    width:75px;
+}
+#BlueToothImage {
+    padding-top: 10%;
+    padding-left: 10%;
+    height:75px;
+    width: 75px;
+}
+#Volume {
+    position:absolute;
+    height:100%;
+    width:10%;
+    left:15%;
+    top:0%;
+}
+#VolumeUp {
+    height: 33.33%;
+    width: 100%;
+}
+#VolumeLv {
+    top:33.3%;
+    height:33.3%;
+    width:100%;
+}
+#VolumeDown {
+    top:66.6%;
+    height:33.3%;
+    width:100%;
+}
+#Compass {
+    position:absolute;
+    top:0%;
+    left:66.6%;
+    height:100%;
+    width:100%;
+}
