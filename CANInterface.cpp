@@ -233,6 +233,72 @@ public:
 		return val;
 	}
 
+	double getLowBatTemp(){
+		dataLock.lock();
+		double val = lowBatTemp;
+		dataLock.unlock();
+		return val;
+	}
+	double getHVvolt(){
+			dataLock.lock();
+			double val = HVvolt;
+			dataLock.unlock();
+			return val;
+		}
+	double getHVamp(){
+			dataLock.lock();
+			double val = HVamp;
+			dataLock.unlock();
+			return val;
+		}
+	double getHVpercent(){
+			dataLock.lock();
+			double val = HVpercent;
+			dataLock.unlock();
+			return val;
+		}
+	double getTwelvev(){
+			dataLock.lock();
+			double val = twelvev;
+			dataLock.unlock();
+			return val;
+		}
+	double getTank1Temp(){
+			dataLock.lock();
+			double val = tank1Temp;
+			dataLock.unlock();
+			return val;
+		}
+	double getTank2Temp(){
+				dataLock.lock();
+				double val = tank2Temp;
+				dataLock.unlock();
+				return val;
+			}
+	double getTank3Temp(){
+				dataLock.lock();
+				double val = tank3Temp;
+				dataLock.unlock();
+				return val;
+			}
+	double getTank1Pressure(){
+				dataLock.lock();
+				double val = tank1Pressure;
+				dataLock.unlock();
+				return val;
+			}
+	double getTank2Pressure(){
+					dataLock.lock();
+					double val = tank2Pressure;
+					dataLock.unlock();
+					return val;
+				}
+	double getTank3Pressure(){
+					dataLock.lock();
+					double val = tank3Pressure;
+					dataLock.unlock();
+					return val;
+				}
 };
 
 class CNI : public ObjectWrap{
@@ -276,6 +342,127 @@ public:
 		return Number::New(handle->target->getHighBatTemp());
 
 	}
+	static Handle<Value> GetLowBatTemp(const Arguments &args){
+
+		if (args.Length() > 0){
+			return ThrowException(String::New("Unexpected arguments"));
+		}
+
+		CNI* handle = Unwrap<CNI>(args.Holder());
+
+		return Number::New(handle->target->getLowBatTemp());
+
+	}
+	static Handle<Value> GetHVvolt(const Arguments &args){
+
+		if (args.Length() > 0){
+			return ThrowException(String::New("Unexpected arguments"));
+		}
+
+		CNI* handle = Unwrap<CNI>(args.Holder());
+
+		return Number::New(handle->target->getHVvolt());
+
+	}
+	static Handle<Value> GetHVamp(const Arguments &args){
+
+		if (args.Length() > 0){
+			return ThrowException(String::New("Unexpected arguments"));
+		}
+
+		CNI* handle = Unwrap<CNI>(args.Holder());
+
+		return Number::New(handle->target->getHVamp());
+
+	}
+	static Handle<Value> GetHVpercent(const Arguments &args){
+
+		if (args.Length() > 0){
+			return ThrowException(String::New("Unexpected arguments"));
+		}
+
+		CNI* handle = Unwrap<CNI>(args.Holder());
+
+		return Number::New(handle->target->getHVpercent());
+
+	}
+	static Handle<Value> GetTwelvev(const Arguments &args){
+
+		if (args.Length() > 0){
+			return ThrowException(String::New("Unexpected arguments"));
+		}
+
+		CNI* handle = Unwrap<CNI>(args.Holder());
+
+		return Number::New(handle->target->getTwelvev());
+
+	}
+	static Handle<Value> GetTank1Temp(const Arguments &args){
+
+		if (args.Length() > 0){
+			return ThrowException(String::New("Unexpected arguments"));
+		}
+
+		CNI* handle = Unwrap<CNI>(args.Holder());
+
+		return Number::New(handle->target->getTank1Temp());
+
+	}
+	static Handle<Value> GetTank2Temp(const Arguments &args){
+
+		if (args.Length() > 0){
+			return ThrowException(String::New("Unexpected arguments"));
+		}
+
+		CNI* handle = Unwrap<CNI>(args.Holder());
+
+		return Number::New(handle->target->getTank2Temp());
+
+	}
+	static Handle<Value> GetTank3Temp(const Arguments &args){
+
+		if (args.Length() > 0){
+			return ThrowException(String::New("Unexpected arguments"));
+		}
+
+		CNI* handle = Unwrap<CNI>(args.Holder());
+
+		return Number::New(handle->target->getTank3Temp());
+
+	}
+	static Handle<Value> GetTank1Pressure(const Arguments &args){
+
+		if (args.Length() > 0){
+			return ThrowException(String::New("Unexpected arguments"));
+		}
+
+		CNI* handle = Unwrap<CNI>(args.Holder());
+
+		return Number::New(handle->target->getTank1Pressure());
+
+	}
+	static Handle<Value> GetTank2Pressure(const Arguments &args){
+
+		if (args.Length() > 0){
+			return ThrowException(String::New("Unexpected arguments"));
+		}
+
+		CNI* handle = Unwrap<CNI>(args.Holder());
+
+		return Number::New(handle->target->getTank2Pressure());
+
+	}
+	static Handle<Value> GetTank3Pressure(const Arguments &args){
+
+		if (args.Length() > 0){
+			return ThrowException(String::New("Unexpected arguments"));
+		}
+
+		CNI* handle = Unwrap<CNI>(args.Holder());
+
+		return Number::New(handle->target->getTank3Pressure());
+
+	}
 
 	CNI(int channel){
 		target = new CANInterface(channel);
@@ -297,6 +484,17 @@ static void Init(Handle<Object>& exports){
 	Handle<FunctionTemplate> it = FunctionTemplate::New(CNI::New);
 
 	NODE_SET_PROTOTYPE_METHOD(it, "getHighBatTemp", CNI::GetHighBatTemp);
+	NODE_SET_PROTOTYPE_METHOD(it, "getHighLowTemp", CNI::GetHighBatTemp);
+	NODE_SET_PROTOTYPE_METHOD(it, "getHVvolt", CNI::GetHighBatTemp);
+	NODE_SET_PROTOTYPE_METHOD(it, "getHVamp", CNI::GetHighBatTemp);
+	NODE_SET_PROTOTYPE_METHOD(it, "getHVpercent", CNI::GetHighBatTemp);
+	NODE_SET_PROTOTYPE_METHOD(it, "getTwelvev", CNI::GetHighBatTemp);
+	NODE_SET_PROTOTYPE_METHOD(it, "getTank1Temp", CNI::GetHighBatTemp);
+	NODE_SET_PROTOTYPE_METHOD(it, "getTank2Temp", CNI::GetHighBatTemp);
+	NODE_SET_PROTOTYPE_METHOD(it, "getTank3Temp", CNI::GetHighBatTemp);
+	NODE_SET_PROTOTYPE_METHOD(it, "getTank1Pressure", CNI::GetHighBatTemp);
+	NODE_SET_PROTOTYPE_METHOD(it, "getTank2Pressure", CNI::GetHighBatTemp);
+	NODE_SET_PROTOTYPE_METHOD(it, "getTank3Pressure", CNI::GetHighBatTemp);
 
 	exports->Set(String::NewSymbol("CANInterface"), it->GetFunction());
 
