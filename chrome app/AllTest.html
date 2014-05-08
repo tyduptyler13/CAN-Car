@@ -1,12 +1,19 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset='utf-8' />
     <!--Call JavaScript files-->
     <link href="css/main.css" rel='stylesheet' />
-    <script src="js/energy_chart.js"></script>
     <script src="js/jquery-2.1.0.min.js"></script>
-    <script src="js/Chartjs.js"></script>
+	<script src="js/jquery.jqplot.js"></script>
+    <script src="js/shCore.js"></script>
+    <script src="js/shBrushJScript.js"></script>
+    <script src="js/shBrushXml.js"></script>
+	<script src="js/BottomBarHandler.js"></script>
+    <script src="js/EnergyTabHandlers.js"></script>
+    <script src="js/HVACTabHandlers.js"></script>
+	<script src="js/AllTest.js"></script>
+
 
     <title>jQuery Tabs Demo</title>
     <style>
@@ -220,56 +227,7 @@
             padding-top: 15%;
         }
     </style>
-    <script src="js/jquery-2.1.0.min.js"></script>
-    <!--<script>
-        
-        //var nativeobject = CANComponent.Class1();
-        //var object = nativeobject.main(); //collect CAN information, store it in file
-        
-        //Original parameter helloString.data, "Title"
-        (new Windows.UI.Popups.MessageDialog(object, "The current handle number is: ")).showAsync().done();
-    </script>-->
 
-    <script>
-        // Wait until the DOM has loaded before querying the document
-        $(document).ready(function () {
-            $('ul.TopTabs').each(function () {
-                // For each set of tabs, we want to keep track of
-                // which tab is active and it's associated content
-                var $active, $content, $links = $(this).find('a');
-
-                // If the location.hash matches one of the links, use that as the active tab.
-                // If no match is found, use the first link as the initial active tab.
-                $active = $($links.filter('[href="' + location.hash + '"]')[0] || $links[0]);
-                $active.addClass('active');
-
-                $content = $($active[0].hash);
-
-                // Hide the remaining content
-                $links.not($active).each(function () {
-                    $(this.hash).hide();
-                });
-
-                // Bind the click event handler
-                $(this).on('click', 'a', function (e) {
-                    // Make the old tab inactive.
-                    $active.removeClass('active');
-                    $content.hide();
-
-                    // Update the variables with the new link and content
-                    $active = $(this);
-                    $content = $(this.hash);
-
-                    // Make the tab active.
-                    $active.addClass('active');
-                    $content.show();
-
-                    // Prevent the anchor's default click action
-                    e.preventDefault();
-                });
-            });
-        });
-    </script>
 </head>
 <body style = "overflow:hidden">
 
@@ -386,10 +344,7 @@
                     </div>
                 </div>
             </div>
-            <div id="ColorWheel" style="width: 70%; height:100%; left:30%; top:0%; position:absolute;">
-            </div>
-
-            
+			
             <button class="Colors" id="HomeColor" style="width: 20%; top:5%; left:30%;">Home Color</button>
             <button class="Colors" id="SettingColor" style="width: 20%; top:20%; left:30%;">Setting Color</button>
             <button class="Colors" id="MusicColor" style="width: 20%; top:35%; left:30%;">Music Color</button>
@@ -433,7 +388,7 @@
             <div class="Colors" id="Yellow4" style="width:10%; top:80%; left:80%; background-color: #CC9900;"></div>
             <div class="Colors" id="Yellow5" style="width:10%; top:80%; left:90%; background-color: #663300;"></div>
 
-            <script src="js/SettingsColorHandler.js"></script>
+            <!--<script src="js/SettingsColorHandler.js"></script>-->
         </div>
 
 
@@ -514,7 +469,6 @@
             </div>
             <div id="Fan7" style="position: absolute; width: 8%; height: 15%; top: 48.5%; left: 88%; background-color: white;">
             </div>
-            <script src="js/HVACTabHandlers.js"></script>
 
         </div>
 
@@ -610,7 +564,6 @@
                 <canvas id="energy_canvas1" width="525" height="250"></canvas>
             </div>
 
-            <script src="js/EnergyTabHandlers.js"></script>
         </div>
 
     </div>
@@ -644,7 +597,6 @@
         </div>
        
 
-        <script src="js/BottomBarHandler.js"></script>
     </div>
 
 </body>

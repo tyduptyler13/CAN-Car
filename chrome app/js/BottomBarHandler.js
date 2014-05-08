@@ -1,17 +1,18 @@
-﻿
+﻿var date;
+var am_pm;
+var hour;
+var minute;
+var WifiIsOn = false;
+var BlueToothIsOn = false;
+var VolumeBar = 0;
+
+$(function(){
 // set the battery image and percentage
 
 
 setInterval(function () {
-   // if (batteryPercentage == 10){
-   //     Windows.UI.Popups.MessageDialog("Your battery level is Below 10%").showAsync().done();
-   // }
-
-   // if (batteryPercentage == 30) {
-   //     Windows.UI.Popups.MessageDialog("Your battery level is Low").showAsync().done();
-   // }
-
-    if (batteryPercentage >= 95) {
+batteryPercentage = 98;
+if (batteryPercentage >= 95) {
         document.getElementById("batteryImage").src = "images/Battery-Levels-100-PercentT.png";
 }
 else if (batteryPercentage >= 85) {
@@ -45,19 +46,17 @@ else document.getElementById("batteryImage").src = "images/Battery-Levels-0-Perc
 
 }, 500);
 
-//setInterval(function () {
-//    batteryPercentage = batteryPercentage + 1;
-//}, 1000);
+
 setInterval(function () {
     document.getElementById("Battery_Text").innerHTML = batteryPercentage + "%";
 }, 1000);
 
 //display the time
 setInterval(function () {
-    var date = new Date();
-    var am_pm;
-    var hour = date.getHours();
-    var minute = date.getMinutes();
+    date = new Date();
+    am_pm;
+    hour = date.getHours();
+    minute = date.getMinutes();
     if (hour > 12) {
         am_pm = "PM";
         hour = hour - 12;
@@ -77,7 +76,6 @@ setInterval(function () {
 
 //wifi on/off
 
-var WifiIsOn = false;
 $("#WifiOn").click(function () {
     if (WifiIsOn == false) {
         WifiIsOn = true;
@@ -90,7 +88,6 @@ $("#WifiOn").click(function () {
 });
 
 //BlueTooth on/off
-var BlueToothIsOn = false;
 $("#BlueTooth").click(function () {
     if (BlueToothIsOn == false) {
         BlueToothIsOn = true;
@@ -102,7 +99,6 @@ $("#BlueTooth").click(function () {
     }
 });
 
-var VolumeBar = 0;
 $("#VolumeUp").click(function () {
     if (VolumeBar < 4) {
         VolumeBar++;
@@ -150,4 +146,5 @@ $("#VolumeDown").click(function () {
         }
             break;
     }
+});
 });

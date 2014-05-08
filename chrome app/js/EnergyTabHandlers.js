@@ -1,9 +1,10 @@
-﻿//Create a new energy chart class to help us
+﻿
+ //Create a new energy chart class to help us
 //Turn the different graphs on and off
 
-var energyChart = new EnergyChart("energy_canvas0");
-var energyChart1 = new EnergyChart("energy_canvas1");
-
+//var energyChart = new EnergyChart("energy_canvas0");
+//var energyChart1 = new EnergyChart("energy_canvas1");
+//var plot1;
 //Storing the Data from Can C++
 var HighVoltageCurrentData = new Array();
 var HighVoltageData = new Array();
@@ -28,25 +29,69 @@ var BatteryClicked;
 var H2Clicked;
 var EcoCarClicked;
 
+var highVoltageSettings =
+{
+        name: "High_Voltage",
+        fillColor: "rgba(220,100,100,0.2)", //Red
+        strokeColor: "rgba(220,100,100,1)",
+        pointColor: "rgba(220,100,100,1)",
+        pointStrokeColor: "#fff",
+        data: HighVoltageData
+    };
+var highVoltageCurrentSettings =
+{
+    name: "High_Voltage_Current",
+    fillColor: "rgba(100,100,220,0.2)", //Blue
+    strokeColor: "rgba(100,100,220,1)",
+    pointColor: "rgba(100,100,220,1)",
+    pointStrokeColor: "#fff",
+    data: HighVoltageCurrentData
+};
+var hydrogenPressureSettings =
+{
+    name: "Hydrogen_Pressure",
+    fillColor: "rgba(220,100,100,0.2)", //Red
+    strokeColor: "rgba(220,100,100,1)",
+    pointColor: "rgba(220,100,100,1)",
+    pointStrokeColor: "#fff",
+    data: H2Pressure1
+};
+var hydrogenTempSettings =
+{
+    name: "Hydrogen_Temp",
+    fillColor: "rgba(100,100,220,0.2)", //Blue
+    strokeColor: "rgba(100,100,220,1)",
+    pointColor: "rgba(100,100,220,1)",
+    pointStrokeColor: "#fff",
+    data: H2Temp1
+};
+var batteryTempSettings =
+{
+    name: "Battery_Temp",
+    fillColor: "rgba(220,220,100,0.2)", //Yellow
+    strokeColor: "rgba(220,220,100,1)",
+    pointColor: "rgba(220,220,100,1)",
+    pointStrokeColor: "#fff",
+    data: BatteryTempData
+};
+var batteryVoltageSettings =
+{
+    name: "Battery_Voltage",
+    fillColor: "rgba(220,100,220,0.2)", //Purple
+    strokeColor: "rgba(220,100,220,1)",
+    pointColor: "rgba(220,100,220,1)",
+    pointStrokeColor: "#fff",
+    data: BatteryVoltageData
+};
+
+
 //Initially set the Arrays for the Charts
-//var hope;
-//WindowsRuntimeComponent1.Class1.projectFile();
-//newData = WindowsRuntimeComponent1.Class1.getData();
 
-//Windows.Storage.StorageFile.getFileFromApplicationUriAsync("ms-appx:///js/Sample.txt").done(
-//    function (file) {
-//        sampleFile = file;
-//        Windows.Storage.FileIO.readBufferAsync(sampleFile).then(function (buffer) {
-//            newData = JSON.parse("[" + buffer + "]");
-//        });
-//    }
-//);
+$(function(){
 
-//Windows.Storage.StorageFile.getFileFromApplicationUriAsync("ms-appdata:///js/Sample.txt").done(
-//    function (file) {
-        
-//    });
-//newData = JSON.parse("[" + hope + "]");
+//$(document).ready(function(){
+//  plot1 = $.jqplot ('graph0', [[3,7,9,1,5,3,8,2,5]]);
+//});
 
 //Right here we need to send NewData to the C++ function put the values in it then read it back this is initial values on start up
 newData = [10, 360, 35, 30, 32, 12, 50, 45, 48, 43, 98, 5];
@@ -108,14 +153,14 @@ HighVoltageCurrentData.push(newData[0]);
     FuelCellCurrent = newData[11];
    
     if (BatteryClicked == true) {
-        energyChart.toggleLine(batteryVoltageSettings);
-        energyChart1.toggleLine(batteryTempSettings);
+    //    energyChart.toggleLine(batteryVoltageSettings);
+    //    energyChart1.toggleLine(batteryTempSettings);
         document.getElementById("data0").innerHTML = ("Battery Voltage: " + BatteryVoltageData[BatteryVoltageData.length - 1] + " V");
         document.getElementById("data1").innerHTML = ("Battery Temperature: " + BatteryTempData[BatteryTempData.length - 1] + " C");
     }
    else if (H2Clicked == true) {
-        energyChart.toggleLine(hydrogenTempSettings);
-        energyChart1.toggleLine(hydrogenPressureSettings);
+    //    energyChart.toggleLine(hydrogenTempSettings);
+    //    energyChart1.toggleLine(hydrogenPressureSettings);
         document.getElementById("data0").innerHTML = ("Hydrogen Temperature: " + H2Temp1[H2Temp1.length - 1] + " C");
         document.getElementById("data1").innerHTML = ("Hydrogen Pressure: " + H2Pressure1[H2Pressure1.length - 1] + " psi");
     }
@@ -129,90 +174,17 @@ HighVoltageCurrentData.push(newData[0]);
         document.getElementById("data6").innerHTML = ("Fuel Cell Current: " + FuelCellCurrent + " A");
     }
     else {
-        energyChart.toggleLine(highVoltageSettings);
-        energyChart1.toggleLine(highVoltageCurrentSettings);
+    //    energyChart.toggleLine(highVoltageSettings);
+    //    energyChart1.toggleLine(highVoltageCurrentSettings);
         document.getElementById("data0").innerHTML = ("High Voltage: " + HighVoltageData[HighVoltageData.length - 1] + " V");
         document.getElementById("data1").innerHTML = ("High Voltage Current: " + HighVoltageCurrentData[HighVoltageCurrentData.length - 1] + " A");
     }
 },5000);
 
-
-//var String1="";
-//$.getJSON("C:\Users\User\Documents\Online Visual Studios\EcoCAR 2 User Interface\EcoCAR UI\Conor_Branch\js\resources.json", function (result) {
-//    $.each(result, function (i, field) {
-//        $("#data0").append(field + " ");
-//    })
-//});
-
-//Create the different chart colors and data
-//setInterval(function()
-//{
-//    //HighVoltageData.push(CANComponent.Class1().main().HV_volt);
-//    HighVoltageData = (3,2,1,0);
-//    energyChart1.toggleLine(highVoltageSettings);
-//    //HighVoltageCurrentData.push(object.HV_amp);
-//}, 10000)
-
-
 //Create the different chart colors and data
 
-var highVoltageSettings =
-{
-        name: "High_Voltage",
-        fillColor: "rgba(220,100,100,0.2)", //Red
-        strokeColor: "rgba(220,100,100,1)",
-        pointColor: "rgba(220,100,100,1)",
-        pointStrokeColor: "#fff",
-        data: HighVoltageData
-    };
-var highVoltageCurrentSettings =
-{
-    name: "High_Voltage_Current",
-    fillColor: "rgba(100,100,220,0.2)", //Blue
-    strokeColor: "rgba(100,100,220,1)",
-    pointColor: "rgba(100,100,220,1)",
-    pointStrokeColor: "#fff",
-    data: HighVoltageCurrentData
-};
-var hydrogenPressureSettings =
-{
-    name: "Hydrogen_Pressure",
-    fillColor: "rgba(220,100,100,0.2)", //Red
-    strokeColor: "rgba(220,100,100,1)",
-    pointColor: "rgba(220,100,100,1)",
-    pointStrokeColor: "#fff",
-    data: H2Pressure1
-};
-var hydrogenTempSettings =
-{
-    name: "Hydrogen_Temp",
-    fillColor: "rgba(100,100,220,0.2)", //Blue
-    strokeColor: "rgba(100,100,220,1)",
-    pointColor: "rgba(100,100,220,1)",
-    pointStrokeColor: "#fff",
-    data: H2Temp1
-};
-var batteryTempSettings =
-{
-    name: "Battery_Temp",
-    fillColor: "rgba(220,220,100,0.2)", //Yellow
-    strokeColor: "rgba(220,220,100,1)",
-    pointColor: "rgba(220,220,100,1)",
-    pointStrokeColor: "#fff",
-    data: BatteryTempData
-};
-var batteryVoltageSettings =
-{
-    name: "Battery_Voltage",
-    fillColor: "rgba(220,100,220,0.2)", //Purple
-    strokeColor: "rgba(220,100,220,1)",
-    pointColor: "rgba(220,100,220,1)",
-    pointStrokeColor: "#fff",
-    data: BatteryVoltageData
-};
-
-energyChart.toggleLine(highVoltageSettings);
-energyChart1.toggleLine(highVoltageCurrentSettings);
+//energyChart.toggleLine(highVoltageSettings);
+//energyChart1.toggleLine(highVoltageCurrentSettings);
 document.getElementById("data0").innerHTML = ("High Voltage: " + HighVoltageData[HighVoltageData.length - 1] + " V");
 document.getElementById("data1").innerHTML = ("High Voltage Current: " + HighVoltageCurrentData[HighVoltageCurrentData.length - 1]+" A");
 
@@ -232,8 +204,8 @@ document.getElementById("data1").innerHTML = ("High Voltage Current: " + HighVol
         H2Clicked = false;
         EcoCarClicked = false;
 
-        energyChart.toggleLine(highVoltageSettings);
-        energyChart1.toggleLine(highVoltageCurrentSettings);
+    //    energyChart.toggleLine(highVoltageSettings);
+    //    energyChart1.toggleLine(highVoltageCurrentSettings);
         document.getElementById("data0").innerHTML = ("High Voltage: " + HighVoltageData[HighVoltageData.length - 1] + " V");
         document.getElementById("data1").innerHTML = ("High Voltage Current: " + HighVoltageCurrentData[HighVoltageCurrentData.length - 1] + " A");
 
@@ -253,8 +225,8 @@ document.getElementById("data1").innerHTML = ("High Voltage Current: " + HighVol
         H2Clicked = false;
         EcoCarClicked = false;
 
-        energyChart.toggleLine(batteryVoltageSettings);
-        energyChart1.toggleLine(batteryTempSettings);
+    //    energyChart.toggleLine(batteryVoltageSettings);
+    //    energyChart1.toggleLine(batteryTempSettings);
         document.getElementById("data0").innerHTML = ("Battery Voltage: " + BatteryVoltageData[BatteryVoltageData.length - 1] + " V");
         document.getElementById("data1").innerHTML = ("Battery Temperature: " + BatteryTempData[BatteryTempData.length - 1] + " C");
     });
@@ -273,8 +245,8 @@ document.getElementById("data1").innerHTML = ("High Voltage Current: " + HighVol
         H2Clicked = true;
         EcoCarClicked = false;
 
-        energyChart.toggleLine(hydrogenTempSettings);
-        energyChart1.toggleLine(hydrogenPressureSettings);
+    //    energyChart.toggleLine(hydrogenTempSettings);
+    //    energyChart1.toggleLine(hydrogenPressureSettings);
         document.getElementById("data0").innerHTML = ("Hydrogen Temperature: " + H2Temp1[H2Temp1.length - 1] + " C");
         document.getElementById("data1").innerHTML = ("Hydrogen Pressure: " + H2Pressure1[H2Pressure1.length - 1] + " psi");
     });
@@ -301,3 +273,4 @@ document.getElementById("data1").innerHTML = ("High Voltage Current: " + HighVol
         document.getElementById("data1").innerHTML = ("H2 Temp Tank3: " + H2Temp3[H2Temp2.length - 1] + " C");
         document.getElementById("data6").innerHTML = ("Fuel Cell Current: " + FuelCellCurrent + " A");
     });
+});

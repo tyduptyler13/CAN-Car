@@ -7,6 +7,8 @@ var Defrost_On = false;
 var FanLevel = 0;
 var HVACArray = [0, 0, 0, 0, 0, 0];
 
+$(function(){
+
 setInterval(function () {
 
 }, 1000);
@@ -281,4 +283,5 @@ $("#FanDown").click(function (e) {
         }
             break;
     }
+});
 });
