@@ -16,7 +16,6 @@
 
 using namespace std;
 using namespace v8;
-using namespace node;
 
 namespace EcoCarUI{
 
@@ -235,49 +234,15 @@ public:
 
 };
 
-class CNI : public ObjectWrap{
+class CNI : public node::ObjectWrap{
 
 private:
 
 	CANInterface* target;
 
-public:
-	static Handle<Value> New(const Arguments &args){
+	static Persistent<Function> constructor;
 
-		cout << "Debug: Creating new CNI" << endl;
-
-		if (args.Length() != 1){
-			cout << "Error: Invalid arguments length" << endl;
-			return ThrowException(String::New("Expected one argument!"));
-		}
-
-		if (!args[0]->IsNumber()){
-			return ThrowException(String::New("Expected one number as an argument."));
-		}
-
-		int channel = args[0]->ToInteger()->Value();
-
-		CNI* wrapper = new CNI(channel);
-
-		wrapper->Wrap(args.Holder());
-
-		return args.Holder();
-
-	}
-
-	static Handle<Value> GetHighBatTemp(const Arguments &args){
-
-		if (args.Length() > 0){
-			return ThrowException(String::New("Unexpected arguments"));
-		}
-
-		CNI* handle = Unwrap<CNI>(args.Holder());
-
-		return Number::New(handle->target->getHighBatTemp());
-
-	}
-
-	CNI(int channel){
+	CNI(int channel = 0){
 		target = new CANInterface(channel);
 	}
 
@@ -286,25 +251,74 @@ public:
 		delete target;
 	}
 
+	static Handle<Value> New(const Arguments &args){
+
+		cout << "Debug: CNI::New start" << endl;
+
+		HandleScope scope;
+
+		if (args.IsConstructCall()) {
+
+			if (args[0]->IsUndefined() || !args[0]->IsNumber()){
+				return ThrowException(Exception::TypeError(String::New("Expected one number as an argument.")));
+			}
+
+			int channel = args[0]->ToInteger()->Value();
+
+			CNI* wrapper = new CNI(channel);
+			wrapper->Wrap(args.This());
+
+			cout << "Debug: CNI::New end" << endl;
+
+			return args.This();
+
+		} else {
+			//Invoked as a function. Convert to constructor call.
+			const int argc = 1;
+			Local<Value> argv[argc] = {args[0]};
+			return scope.Close(constructor->NewInstance(argc, argv));
+		}
+
+	}
+
+	static Handle<Value> GetHighBatTemp(const Arguments &args){
+
+		HandleScope scope;
+
+		if (args.Length() > 0){
+			return ThrowException(Exception::TypeError(String::New("Unexpected arguments")));
+		}
+
+		CNI* handle = Unwrap<CNI>(args.This());
+
+		return scope.Close(Number::New(handle->target->getHighBatTemp()));
+
+	}
+
+public:
+
+	static void Init(Handle<Object>& exports){
+
+		cout << "Debug: CNI Init Start" << endl;
+
+		Local<FunctionTemplate> it = FunctionTemplate::New(New);
+
+		it->SetClassName(String::NewSymbol("CNI"));
+		it->InstanceTemplate()->SetInternalFieldCount(1); //TODO add the rest.
+		it->PrototypeTemplate()->Set(String::NewSymbol("getHighBatTemp"),
+				FunctionTemplate::New(GetHighBatTemp)->GetFunction());
+
+		constructor = Persistent<Function>::New(it->GetFunction());
+
+		exports->Set(String::NewSymbol("CNI"), constructor);
+
+		cout << "Debug: CNI Init End" << endl;
+
+	}
+
 };
 
-static void Init(Handle<Object>& exports){
-
-	HandleScope scope;
-
-	cout << "Debug: Creating CNI" << endl;
-
-	Handle<FunctionTemplate> it = FunctionTemplate::New(CNI::New);
-
-	NODE_SET_PROTOTYPE_METHOD(it, "getHighBatTemp", CNI::GetHighBatTemp);
-
-	exports->Set(String::NewSymbol("CANInterface"), it->GetFunction());
-
-	cout << "Debug: Created symbol for CANInterface" << endl;
-
-}
-
-NODE_MODULE(CANInterface, Init)
+NODE_MODULE(CNI, CNI::Init)
 
 }
 

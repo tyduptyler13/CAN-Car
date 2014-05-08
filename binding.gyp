@@ -1,7 +1,7 @@
 {
 	"targets": [
 		{
-			"target_name": "CANInterface",
+			"target_name": "CNI",
 			"sources": [
 				"CANInterface.cpp"
 			],
