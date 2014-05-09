@@ -6,6 +6,19 @@
 	"app": {
 		"background": {
 			"scripts": ["background.js"]
-		}
+		},
+	}
+}
+
+{
+	  "name": "Serial Test",
+	  "version": "2",
+	  "manifest_version": 2,
+	  "permissions": ["serial" , "usb"],
+	  "app": {
+	    "background": {
+	      "scripts": ["serialdata.js"],
+	      "transient": true
+	    }
 	}
 }
