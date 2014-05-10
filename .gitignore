@@ -4,3 +4,6 @@
 .jshintrc
 build/
 node_modules/
+*.log
+*.o
+*.d
