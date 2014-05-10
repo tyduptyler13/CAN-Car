@@ -3,7 +3,9 @@
 		{
 			"target_name": "CNI",
 			"sources": [
-				"CANInterface.cpp"
+				"CANInterface.cpp",
+				"CNI.cpp",
+				"addon.cpp"
 			],
 			"conditions": [
 				[ "OS=='win'" , {
