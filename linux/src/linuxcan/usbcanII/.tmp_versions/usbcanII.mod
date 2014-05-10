@@ -1,0 +1,2 @@
+/home/tyler/git/CAN-Car/linux/src/linuxcan/usbcanII/usbcanII.ko
+/home/tyler/git/CAN-Car/linux/src/linuxcan/usbcanII/usbcanHWIf.o /home/tyler/git/CAN-Car/linux/src/linuxcan/usbcanII/../common/VCanOsIf.o /home/tyler/git/CAN-Car/linux/src/linuxcan/usbcanII/../common/objbuf.o /home/tyler/git/CAN-Car/linux/src/linuxcan/usbcanII/../common/osif_functions_kernel.o /home/tyler/git/CAN-Car/linux/src/linuxcan/usbcanII/../common/queue.o

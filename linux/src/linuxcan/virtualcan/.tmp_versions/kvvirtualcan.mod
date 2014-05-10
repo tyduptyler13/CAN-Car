@@ -1,0 +1,2 @@
+/home/tyler/git/CAN-Car/linux/src/linuxcan/virtualcan/kvvirtualcan.ko
+/home/tyler/git/CAN-Car/linux/src/linuxcan/virtualcan/virtualcan.o /home/tyler/git/CAN-Car/linux/src/linuxcan/virtualcan/../common/VCanOsIf.o /home/tyler/git/CAN-Car/linux/src/linuxcan/virtualcan/../common/objbuf.o /home/tyler/git/CAN-Car/linux/src/linuxcan/virtualcan/../common/osif_functions_kernel.o /home/tyler/git/CAN-Car/linux/src/linuxcan/virtualcan/../common/queue.o

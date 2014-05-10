@@ -1,0 +1,2 @@
+/home/tyler/git/CAN-Car/linux/src/linuxcan/pcican2/kvpcicanII.ko
+/home/tyler/git/CAN-Car/linux/src/linuxcan/pcican2/PciCan2HwIf.o /home/tyler/git/CAN-Car/linux/src/linuxcan/pcican2/../common/VCanOsIf.o /home/tyler/git/CAN-Car/linux/src/linuxcan/pcican2/../common/objbuf.o /home/tyler/git/CAN-Car/linux/src/linuxcan/pcican2/../common/osif_functions_kernel.o /home/tyler/git/CAN-Car/linux/src/linuxcan/pcican2/../common/queue.o /home/tyler/git/CAN-Car/linux/src/linuxcan/pcican2/memQ.o
