@@ -240,8 +240,6 @@ private:
 
 	CANInterface* target;
 
-	static Persistent<Function> constructor;
-
 	CNI(int channel = 0){
 		target = new CANInterface(channel);
 	}
@@ -260,7 +258,8 @@ private:
 		if (args.IsConstructCall()) {
 
 			if (args[0]->IsUndefined() || !args[0]->IsNumber()){
-				return ThrowException(Exception::TypeError(String::New("Expected one number as an argument.")));
+				ThrowException(Exception::TypeError(String::New("Expected one number as an argument.")));
+				return scope.Close(Undefined());
 			}
 
 			int channel = args[0]->ToInteger()->Value();
@@ -286,7 +285,8 @@ private:
 		HandleScope scope;
 
 		if (args.Length() > 0){
-			return ThrowException(Exception::TypeError(String::New("Unexpected arguments")));
+			ThrowException(Exception::TypeError(String::New("Unexpected arguments")));
+			return scope.Close(Undefined());
 		}
 
 		CNI* handle = Unwrap<CNI>(args.This());
@@ -296,6 +296,8 @@ private:
 	}
 
 public:
+
+	static Persistent<Function> constructor;
 
 	static void Init(Handle<Object>& exports){
 
@@ -321,4 +323,3 @@ public:
 NODE_MODULE(CNI, CNI::Init)
 
 }
-
