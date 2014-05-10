@@ -14,7 +14,14 @@
 	  "name": "Serial Test",
 	  "version": "2",
 	  "manifest_version": 2,
-	  "permissions": ["serial" , "usb"],
+	  "permissions": [ 
+	    "serial" , 
+	    "usb" , 
+	    "usbdevices"
+	      {"vendorId": 123
+	    	"productId": 456
+	      }
+	    ],
 	  "app": {
 	    "background": {
 	      "scripts": ["serialdata.js"],
