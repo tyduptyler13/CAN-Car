@@ -3,6 +3,7 @@
 
 #include "CANInterface.h"
 
+double dataArray[14] = { 0.0 };
 using namespace std;
 
 CANInterface::CANInterface(int channel) : temp_factor(0.217325), temp_offset(-61.1482),
@@ -50,6 +51,8 @@ byte CANInterface::reverseBits(byte msg){
 void CANInterface::batteryTemp(byte data[8]){
 	byte reverseData[8]; //Holds data array with bits revrsed
 
+	//Motorola Convention: 8-bytes
+	//need to reverse bit order in array!
 	for (int i = 0; i < 8; i++){
 		reverseData[i] = reverseBits(data[7 - i]);
 	}
@@ -58,12 +61,15 @@ void CANInterface::batteryTemp(byte data[8]){
 	highBatTemp = parse(32, 8, reverseData)*0.5 - 40; // high_bat_temp
 	lowBatTemp = parse(40, 8, reverseData)*0.5 - 40; // low_bat_temp
 	dataLock.unlock();
+	
+	dataArray[6] =  highBatTemp;
+	dataArray[7] = lowBatTemp;
 }
 
 void CANInterface::highVolt(byte data[8]){
 	byte reverseData[8]; //Holds data array with bits reversed
 
-	//Moterolla Convention: 8-bytes
+	//Motorola Convention: 8-bytes
 	//need to reverse bit order in array!
 	for (int i = 0; i < 8; i++){
 		reverseData[7 - i] = reverseBits(data[i]);
@@ -74,17 +80,23 @@ void CANInterface::highVolt(byte data[8]){
 	HVamp  = parse(40, 16, reverseData)*0.025 - 1000; // HV_amp
 	HVpercent = parse(24, 8, reverseData)*0.5; // HV_percent
 	dataLock.unlock();
+	
+	dataArray[1] = HVvolt;
+	dataArray[0] = HVamp;
+	dataArray[11] = HVpercent;
 }
 
 void CANInterface::twelveVolt(byte data[8]){
 	byte reversedData[7];
-	//message is 7 Bytes, Motorolla. Need bits in first byte reversed
+	//message is 7 Bytes, Motorola. Need bits in first byte reversed
 	for (int i = 0; i < 7; i++){
 		reversedData[i] = reverseBits(data[6 - i]);
 	}
 	dataLock.lock();
 	twelvev = parse(16, 8, reversedData)*0.0784314; // twelve_volt
 	dataLock.lock();
+	
+	dataArray[5] = twelvev
 }
 
 void CANInterface::htank(byte data[8]){
@@ -98,6 +110,14 @@ void CANInterface::htank(byte data[8]){
 	tank2Pressure = (parse(40, 10, data) * pressure_factor) + pressure_offset; // tank2_pressure
 	tank3Pressure = (parse(50, 10, data) * pressure_factor) + pressure_offset; // tank3_pressure
 	dataLock.unlock();
+	
+	dataArray[8] = tank1Temp;
+	dataArray[9] = tank2Temp;
+	dataArray[10] = tank3Temp;
+
+	dataArray[2] = tank1Pressure;
+	dataArray[3] = tank2Pressure;
+	dataArray[4] = tank3Pressure;
 }
 
 void CANInterface::CANRead(int handle){
@@ -112,21 +132,13 @@ void CANInterface::CANRead(int handle){
 		//while loop that reads from Kvaser CAN buffer
 		do {
 			stat = canRead(handle, &id, &data, &dlc, &flags, &timeStamp);
-			printf("\nI found a generic signal!!!\n");
-			printf("and here is the message: ");
-
-			//print the H2 tank message
-			for (int i = 0; i < 8; i++){
-				printf("%3u, ", data[i]);
-				//			fprintf(f, "%3u, ", data[i]);
-			}
-			//		fprintf(f, "Id: %3x\n", id);
-
+			
+			//Scan CAN IDs and call appropriate functions
 			switch (id){
 			case 258: htank(data); break;
-			case 1072: batteryTemp(data); break;
-			case 1040: highVolt(data); break;
-			case 470: twelveVolt(data); break;
+			case 776: batteryTemp(data); break; // IDs are Motorola Adjusted
+			case 520: highVolt(data); break; // IDs are Motorola Adjusted
+			case 430: twelveVolt(data); break; // IDs are Motorola Adjusted
 			}
 
 		} while (stat == canOK);
