@@ -6,6 +6,6 @@
 	"app": {
 		"background": {
 			"scripts": ["background.js"]
-		},
+		}
 	}
 }
