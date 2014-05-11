@@ -3,29 +3,17 @@
 	"description": "CAN Frameless App",
 	"manifest_version": 2,
 	"version": "0.1",
+	"permissions": [ 
+	    "serial" , 
+	    "usb" , 
+	    "usbdevices"
+	       {"vendorId": 123
+	        "productId": 456
+	       }
+	        	   ],
 	"app": {
 		"background": {
 			"scripts": ["background.js"]
 		},
-	}
-}
-
-{
-	  "name": "Serial Test",
-	  "version": "2",
-	  "manifest_version": 2,
-	  "permissions": [ 
-	    "serial" , 
-	    "usb" , 
-	    "usbdevices"
-	      {"vendorId": 123
-	    	"productId": 456
-	      }
-	    ],
-	  "app": {
-	    "background": {
-	      "scripts": ["serialdata.js"],
-	      "transient": true
-	    }
 	}
 }
