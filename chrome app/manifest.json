@@ -7,7 +7,7 @@
 	    "serial" , 
 	    "usb" , 
 	    "usbdevices"
-	       {"vendorId": 123
+	       {"vendorId": 123,
 	        "productId": 456
 	       }
 	        	   ],
