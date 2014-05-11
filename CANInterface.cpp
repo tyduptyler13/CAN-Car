@@ -97,7 +97,7 @@ void CANInterface::twelveVolt(byte data[8]){
 	twelvev = parse(16, 8, reversedData)*0.0784314; // twelve_volt
 	dataLock.lock();
 	
-	dataArray[5] = twelvev
+	dataArray[5] = twelvev;
 }
 
 void CANInterface::htank(byte data[8]){
@@ -143,7 +143,7 @@ void CANInterface::CANRead(int handle){
 			}
 
 			//Temporary code to print data pulled in dataArray (Also temporary for debugging)
-			for(int i=0;i<14,i++){
+			for(int i=0;i<14;i++){
 				cout<< dataArray[i] << ", ";
 			}
 			cout<< endl;

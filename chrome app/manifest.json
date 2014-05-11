@@ -7,10 +7,7 @@
 	    "serial" , 
 	    "usb" , 
 	    "usbdevices"
-	       {"vendorId": 123,
-	        "productId": 456
-	       }
-	        	   ],
+	        	   ] ,
 	"app": {
 		"background": {
 			"scripts": ["background.js"]
