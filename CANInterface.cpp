@@ -3,6 +3,7 @@
 
 #include "CANInterface.h"
 
+//dataArray is a temporary structure to hold out CAN data for debugging. WIll be deleted later
 double dataArray[14] = { 0.0 };
 using namespace std;
 
@@ -141,6 +142,11 @@ void CANInterface::CANRead(int handle){
 			case 430: twelveVolt(data); break; // IDs are Motorola Adjusted
 			}
 
+			//Temporary code to print data pulled in dataArray (Also temporary for debugging)
+			for(int i=0;i<14,i++){
+				cout<< dataArray[i] << ", ";
+			}
+			cout<< endl;
 		} while (stat == canOK);
 		this_thread::sleep_for(chrono::milliseconds(2000));
 	}
