@@ -3,6 +3,9 @@
 	"description": "CAN Frameless App",
 	"manifest_version": 2,
 	"version": "0.1",
+	"permissions": [
+	  "fullscreen"
+	        ],
 	"app": {
 		"background": {
 			"scripts": ["background.js"]
