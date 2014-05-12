@@ -6,12 +6,13 @@ var PannelFloor_On = false;
 var Defrost_On = false;
 var FanLevel = 0;
 var HVACArray = [0, 0, 0, 0, 0, 0];
+//var  http;
+//var server;
+//var io;
+//var socket;
 
 $(function(){
 
-setInterval(function () {
-
-}, 1000);
 
 $("#AC_Button").click(function (e) {
     if (AC_On == false) {
@@ -284,4 +285,14 @@ $("#FanDown").click(function (e) {
             break;
     }
 });
+
+	//http = require('http');
+	//io = required ('socket.io');
+    //server = http.createServer();
+    //server.listen(8001);
+	//var io.listen(server);
+	//io.socket.on('connection', function(socket)){
+	//	socket.emit('HVACData', {'HVACData': HVACArray})
+	//}
+
 });
