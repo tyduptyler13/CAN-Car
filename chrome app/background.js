@@ -9,7 +9,7 @@ chrome.app.runtime.onLaunched.addListener(function() {
 	);
 });
 
-var io = require('socket.io')();
+/*var io = require('socket.io')();
 io.on('connection', function(socket){});
 io.listen(8001);
 
@@ -22,4 +22,4 @@ dataArray.on('connection', function (socket) {
       console.log(status);
       chat.send(msg);
     });
-});
+}); */
