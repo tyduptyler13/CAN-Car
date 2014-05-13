@@ -66,7 +66,7 @@ void CANInterface::batteryTemp(byte data[8]){
 	dataArray[6] =  highBatTemp;
 	dataArray[7] = lowBatTemp;
 }
-/*
+
  inline int CANInterface::openChannel(const int channel){
 	int handle;
 	int stat;
@@ -83,7 +83,7 @@ void CANInterface::batteryTemp(byte data[8]){
 		exit(1);
 	}
 	return handle;
-}*/
+}
 
 void CANInterface::highVolt(byte data[8]){
 	byte reverseData[8]; //Holds data array with bits reversed
@@ -186,15 +186,18 @@ void CANInterface::run(int c){
 
 	thrd = thread([=](){
 		running = true;
+		
+		/*//bellow is code to use if openChannel()( function is not working. 
+		   //Basically, it performs all the functions of openChannel() within this function
 		canInitializeLibrary();
 		int handle = canOpenChannel(0, 0); //ARGS: Channel, Flags
 		printf("handle is: %i", handle);
 		
 		long int id; //Node ID
-	byte data[8];
-	unsigned int dlc, flags;
-	unsigned long timeStamp;
-	canStatus stat;
+		byte data[8];
+		unsigned int dlc, flags;
+		unsigned long timeStamp;
+		canStatus stat;
 		
 		//debugging here to see if CAN functions will work
 		canRead(handle, &id, &data, &dlc, &flags, &timeStamp);
@@ -204,11 +207,11 @@ void CANInterface::run(int c){
 		stat = canRead(handle, &id, &data, &dlc, &flags, &timeStamp);
 		cout<<endl<<"STAT IS: "<<stat<<endl;
 		stat = canRead(handle, &id, &data, &dlc, &flags, &timeStamp);
-		cout<<endl<<"STAT IS: "<<stat<<endl;
+		cout<<endl<<"STAT IS: "<<stat<<endl;*/
 		
 		
 		//canInitializeLibrary();
-		//int handle = openChannel(c);
+		int handle = openChannel(c);
 		//cout<<endl<< handle<<endl<<endl;
 		CANRead(handle);
 
