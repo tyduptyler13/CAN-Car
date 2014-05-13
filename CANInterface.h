@@ -44,7 +44,7 @@ private:
 
 
 	static inline int openChannel(const int channel){
-		return canOpenChannel(channel, 0); //ARGS: Channel, Flags
+		//return stat;//canOpenChannel(channel, 0); //ARGS: Channel, Flags
 	}
 
 	static inline int closeChannel(int handle){

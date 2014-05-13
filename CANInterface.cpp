@@ -66,6 +66,24 @@ void CANInterface::batteryTemp(byte data[8]){
 	dataArray[6] =  highBatTemp;
 	dataArray[7] = lowBatTemp;
 }
+/*
+ inline int CANInterface::openChannel(const int channel){
+	int handle;
+	int stat;
+
+	canInitializeLibrary();
+	handle = canOpenChannel(channel, 0); //ARGS: Channel, Flags
+	printf("handle is: %i", handle);
+	canSetBusOutputControl(handle, canDRIVER_NORMAL);
+	stat = canSetBusParams(handle, canBITRATE_500K, 0, 0, 0, 0, 0);
+	canBusOn(handle);
+
+	if (stat < 0){
+		printf("canBusOn failed, status = %d\n", stat);
+		exit(1);
+	}
+	return handle;
+}*/
 
 void CANInterface::highVolt(byte data[8]){
 	byte reverseData[8]; //Holds data array with bits reversed
@@ -133,13 +151,25 @@ void CANInterface::CANRead(int handle){
 		//while loop that reads from Kvaser CAN buffer
 		do {
 			stat = canRead(handle, &id, &data, &dlc, &flags, &timeStamp);
-			
-			//Scan CAN IDs and call appropriate functions
+			cout<<endl<<stat<<endl;
+			/*Scan CAN IDs and call appropriate functions
 			switch (id){
 			case 258: htank(data); break;
 			case 776: batteryTemp(data); break; // IDs are Motorola Adjusted
 			case 520: highVolt(data); break; // IDs are Motorola Adjusted
 			case 430: twelveVolt(data); break; // IDs are Motorola Adjusted
+			}*/
+			if(id==258){
+				htank(data);
+				}
+			else if(id==776){
+				batteryTemp(data);
+			}
+			else if(id==520){
+				highVolt(data);
+			}
+			else if(id==430){
+				twelveVolt(data);
 			}
 
 			//Temporary code to print data pulled in dataArray (Also temporary for debugging)
@@ -156,9 +186,30 @@ void CANInterface::run(int c){
 
 	thrd = thread([=](){
 		running = true;
-
-		int handle = openChannel(c);
-
+		canInitializeLibrary();
+		int handle = canOpenChannel(0, 0); //ARGS: Channel, Flags
+		printf("handle is: %i", handle);
+		
+		long int id; //Node ID
+	byte data[8];
+	unsigned int dlc, flags;
+	unsigned long timeStamp;
+	canStatus stat;
+		
+		//debugging here to see if CAN functions will work
+		canRead(handle, &id, &data, &dlc, &flags, &timeStamp);
+		canSetBusOutputControl(handle, canDRIVER_NORMAL);
+		stat = canSetBusParams(handle, canBITRATE_500K, 0, 0, 0, 0, 0);
+		cout<<endl<<"STAT IS: "<<stat<<endl;
+		stat = canRead(handle, &id, &data, &dlc, &flags, &timeStamp);
+		cout<<endl<<"STAT IS: "<<stat<<endl;
+		stat = canRead(handle, &id, &data, &dlc, &flags, &timeStamp);
+		cout<<endl<<"STAT IS: "<<stat<<endl;
+		
+		
+		//canInitializeLibrary();
+		//int handle = openChannel(c);
+		//cout<<endl<< handle<<endl<<endl;
 		CANRead(handle);
 
 		closeChannel(handle);
