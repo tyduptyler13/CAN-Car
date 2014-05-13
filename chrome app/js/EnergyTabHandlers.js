@@ -83,15 +83,30 @@ var batteryVoltageSettings =
     pointStrokeColor: "#fff",
     data: BatteryVoltageData
 };
+//var socket;
 
+//io.sockets.on('connection', function(socket){
+//	socket.json.send('string');
+//	socket.json.send(5);
+//	socket.json.send([
+//		{},{}
+//	]);
+//});
 
 //Initially set the Arrays for the Charts
 
 $(function(){
 
-//$(document).ready(function(){
-//  plot1 = $.jqplot ('graph0', [[3,7,9,1,5,3,8,2,5]]);
-//});
+//  socket = io.connect();
+//  socket.on()
+	
+
+
+
+plot1 = $.jqplot ('graph0', [[3,7,9,1,5,3,8,2,5]]);
+
+
+
 
 //Right here we need to send NewData to the C++ function put the values in it then read it back this is initial values on start up
 newData = [10, 360, 35, 30, 32, 12, 50, 45, 48, 43, 98, 5];

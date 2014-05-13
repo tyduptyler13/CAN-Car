@@ -40,8 +40,9 @@
 }
 
 #graph0 {
-	height: 300px;
-	width: 500px;
+	position: absolute;
+	left: 30%;
+	top: 15%;
 }
 #graph1 {
     Position:absolute;

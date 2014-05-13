@@ -173,10 +173,10 @@ void CANInterface::CANRead(int handle){
 			}
 
 			//Temporary code to print data pulled in dataArray (Also temporary for debugging)
-			for(int i=0;i<14;i++){
+			/*for(int i=0;i<14;i++){
 				cout<< dataArray[i] << ", ";
-			}
-			cout<< endl;
+			}*/
+			//cout<< endl;
 		} while (stat == canOK);
 		this_thread::sleep_for(chrono::milliseconds(2000));
 	}
