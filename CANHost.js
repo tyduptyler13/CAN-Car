@@ -17,7 +17,18 @@ io.sockets.on('connection', function(socket){
 		//How to send messages
 		var obj = {
 				highBatTemp : cni.getHighBatTemp(),
-				lowBatTemp : cni.getLowBatTemp()
+				lowBatTemp : cni.getLowBatTemp(),
+				HVvolt : cni.getHVvolt(),
+				HVamp : cni.getHVamp(),
+				HVpercent : cni.getHVpercent(),
+				Twelvev : cni.getTwelvev(),
+				Tank1Temp : cni.getTank1Temp(),
+				Tank2Temp : cni.getTank2Temp(),
+				Tank3Temp : cni.getTank3Temp(),
+				Tank1Pressure : cni.getTank1Pressure(),
+				Tank2Pressure : cni.getTank2Pressure(),
+				Tank3Pressure : cni.getTank3Pressure(),
+
 		};
 		
 		
