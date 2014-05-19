@@ -63,8 +63,8 @@ void CANInterface::batteryTemp(byte data[8]){
 	lowBatTemp = parse(40, 8, reverseData)*0.5 - 40; // low_bat_temp
 	dataLock.unlock();
 	
-	dataArray[6] =  highBatTemp;
-	dataArray[7] = lowBatTemp;
+	cout<< "\tBattery Temp High: " << highBatTemp << endl; // DELETE: for debugging
+	cout<< "\tBattery Temp Low: " << lowBatTemp << endl; // DELETE: for debugging
 }
 
  inline int CANInterface::openChannel(const int channel){
@@ -100,9 +100,9 @@ void CANInterface::highVolt(byte data[8]){
 	HVpercent = parse(24, 8, reverseData)*0.5; // HV_percent
 	dataLock.unlock();
 	
-	dataArray[1] = HVvolt;
-	dataArray[0] = HVamp;
-	dataArray[11] = HVpercent;
+	cout<< "\tHighVoltage Voltage: " << HVvolt << endl; // DELETE: for debugging
+	cout<< "\tHighVoltage Current: " << HVamp << endl; // DELETE: for debugging
+	cout<< "\tHighVoltage Percent: " << HVpercent << endl; // DELETE: for debugging
 }
 
 void CANInterface::twelveVolt(byte data[8]){
@@ -115,7 +115,7 @@ void CANInterface::twelveVolt(byte data[8]){
 	twelvev = parse(16, 8, reversedData)*0.0784314; // twelve_volt
 	dataLock.lock();
 	
-	dataArray[5] = twelvev;
+	cout<< "\tTwelve Volt Voltage: " << twelvev <<endl; // DELETE: for debugging
 }
 
 void CANInterface::htank(byte data[8]){
@@ -130,13 +130,13 @@ void CANInterface::htank(byte data[8]){
 	tank3Pressure = (parse(50, 10, data) * pressure_factor) + pressure_offset; // tank3_pressure
 	dataLock.unlock();
 	
-	dataArray[8] = tank1Temp;
-	dataArray[9] = tank2Temp;
-	dataArray[10] = tank3Temp;
+	cout<< "\tTank 1 Temp: " << tank1Temp << endl; // DELETE: for debugging
+	cout<< "\tTank 2 Temp: " << tank2Temp << endl; // DELETE: for debugging
+	cout<< "\tTank 3 Temp: " << tank3Temp << endl; // DELETE: for debugging
 
-	dataArray[2] = tank1Pressure;
-	dataArray[3] = tank2Pressure;
-	dataArray[4] = tank3Pressure;
+	cout<< "\tTank 1 Pressure: " << tank1Pressure << endl; // DELETE: for debugging
+	cout<< "\tTank 2 Pressure: " << tank2Pressure << endl; // DELETE: for debugging
+	cout<< "\tTank 3 Pressure: " << tank3Pressure << endl; // DELETE: for debugging
 }
 
 void CANInterface::CANRead(int handle){
@@ -161,23 +161,24 @@ void CANInterface::CANRead(int handle){
 			}*/
 			if(id==258){
 				htank(data);
+				cout<<"I found Htank data:"<<endl; // DELETE: for debugging
 				}
 			else if(id==776){
 				batteryTemp(data);
+				cout<<"I found batteryTemp data:"<<endl; // DELETE: for debugging
 			}
 			else if(id==520){
 				highVolt(data);
+				cout<<"I found highVolt data:"<<endl; // DELETE: for debugging
 			}
 			else if(id==430){
 				twelveVolt(data);
+				cout<<"I found twelveVolt data:"<<endl; // DELETE: for debugging
 			}
 
-			//Temporary code to print data pulled in dataArray (Also temporary for debugging)
-			/*for(int i=0;i<14;i++){
-				cout<< dataArray[i] << ", ";
-			}*/
-			//cout<< endl;
+		
 		} while (stat == canOK);
+			//Temporary code to print data pulled in dataArray (Also temporary for debugging)
 		this_thread::sleep_for(chrono::milliseconds(2000));
 	}
 }
@@ -187,35 +188,12 @@ void CANInterface::run(int c){
 	thrd = thread([=](){
 		running = true;
 		
-		/*//bellow is code to use if openChannel()( function is not working. 
-		   //Basically, it performs all the functions of openChannel() within this function
-		canInitializeLibrary();
-		int handle = canOpenChannel(0, 0); //ARGS: Channel, Flags
-		printf("handle is: %i", handle);
 		
-		long int id; //Node ID
-		byte data[8];
-		unsigned int dlc, flags;
-		unsigned long timeStamp;
-		canStatus stat;
+		int handle = openChannel(c); // Get handle for available CANbus port
 		
-		//debugging here to see if CAN functions will work
-		canRead(handle, &id, &data, &dlc, &flags, &timeStamp);
-		canSetBusOutputControl(handle, canDRIVER_NORMAL);
-		stat = canSetBusParams(handle, canBITRATE_500K, 0, 0, 0, 0, 0);
-		cout<<endl<<"STAT IS: "<<stat<<endl;
-		stat = canRead(handle, &id, &data, &dlc, &flags, &timeStamp);
-		cout<<endl<<"STAT IS: "<<stat<<endl;
-		stat = canRead(handle, &id, &data, &dlc, &flags, &timeStamp);
-		cout<<endl<<"STAT IS: "<<stat<<endl;*/
-		
-		
-		//canInitializeLibrary();
-		int handle = openChannel(c);
-		//cout<<endl<< handle<<endl<<endl;
-		CANRead(handle);
+		CANRead(handle); // Read data from CANbus
 
-		closeChannel(handle);
+		closeChannel(handle); // Clean up
 	});
 
 }
