@@ -49,8 +49,9 @@ byte CANInterface::reverseBits(byte msg){
 	return result;
 }
 
+// BCM_Data1 (0x430): Battery temp
 void CANInterface::batteryTemp(byte data[8]){
-	byte reverseData[8]; //Holds data array with bits revrsed
+	byte reverseData[8]; //Holds data array with bits reversed
 
 	//Motorola Convention: 8-bytes
 	//need to reverse bit order in array!
@@ -63,8 +64,9 @@ void CANInterface::batteryTemp(byte data[8]){
 	lowBatTemp = parse(40, 8, reverseData)*0.5 - 40; // low_bat_temp
 	dataLock.unlock();
 	
+	cout<<"BatteryTemp data:"<<endl; // DELETE: for debugging
 	cout<< "\tBattery Temp High: " << highBatTemp << endl; // DELETE: for debugging
-	cout<< "\tBattery Temp Low: " << lowBatTemp << endl; // DELETE: for debugging
+	cout<< "\tBattery Temp Low: " << lowBatTemp << endl << endl; // DELETE: for debugging
 }
 
  inline int CANInterface::openChannel(const int channel){
@@ -73,7 +75,7 @@ void CANInterface::batteryTemp(byte data[8]){
 
 	canInitializeLibrary();
 	handle = canOpenChannel(channel, 0); //ARGS: Channel, Flags
-	printf("handle is: %i", handle);
+	printf("handle is: %i\n", handle);
 	canSetBusOutputControl(handle, canDRIVER_NORMAL);
 	stat = canSetBusParams(handle, canBITRATE_500K, 0, 0, 0, 0, 0);
 	canBusOn(handle);
@@ -85,6 +87,7 @@ void CANInterface::batteryTemp(byte data[8]){
 	return handle;
 }
 
+// BCM_status (0x410): High Voltage Stuff: CSU LAN
 void CANInterface::highVolt(byte data[8]){
 	byte reverseData[8]; //Holds data array with bits reversed
 
@@ -100,11 +103,13 @@ void CANInterface::highVolt(byte data[8]){
 	HVpercent = parse(24, 8, reverseData)*0.5; // HV_percent
 	dataLock.unlock();
 	
+	cout<<"HighVolt data:"<<endl; // DELETE: for debugging
 	cout<< "\tHighVoltage Voltage: " << HVvolt << endl; // DELETE: for debugging
 	cout<< "\tHighVoltage Current: " << HVamp << endl; // DELETE: for debugging
-	cout<< "\tHighVoltage Percent: " << HVpercent << endl; // DELETE: for debugging
+	cout<< "\tHighVoltage Percent: " << HVpercent << endl << endl; // DELETE: for debugging
 }
 
+// 12-Volt System (0x1D6) CSU LAN
 void CANInterface::twelveVolt(byte data[8]){
 	byte reversedData[7];
 	//message is 7 Bytes, Motorola. Need bits in first byte reversed
@@ -115,9 +120,11 @@ void CANInterface::twelveVolt(byte data[8]){
 	twelvev = parse(16, 8, reversedData)*0.0784314; // twelve_volt
 	dataLock.lock();
 	
-	cout<< "\tTwelve Volt Voltage: " << twelvev <<endl; // DELETE: for debugging
+	cout<<"TwelveVolt data:"<<endl; // DELETE: for debugging
+	cout<< "\tTwelve Volt Voltage: " << twelvev << endl << endl; // DELETE: for debugging
 }
 
+// For Hydrogen Tanks Status (0x102)
 void CANInterface::htank(byte data[8]){
 	//perform necessary math corrections to "raw" data
 	dataLock.lock();
@@ -130,13 +137,15 @@ void CANInterface::htank(byte data[8]){
 	tank3Pressure = (parse(50, 10, data) * pressure_factor) + pressure_offset; // tank3_pressure
 	dataLock.unlock();
 	
+	cout<<"Htank data:"<<endl; // DELETE: for debugging
+	
 	cout<< "\tTank 1 Temp: " << tank1Temp << endl; // DELETE: for debugging
 	cout<< "\tTank 2 Temp: " << tank2Temp << endl; // DELETE: for debugging
 	cout<< "\tTank 3 Temp: " << tank3Temp << endl; // DELETE: for debugging
 
 	cout<< "\tTank 1 Pressure: " << tank1Pressure << endl; // DELETE: for debugging
 	cout<< "\tTank 2 Pressure: " << tank2Pressure << endl; // DELETE: for debugging
-	cout<< "\tTank 3 Pressure: " << tank3Pressure << endl; // DELETE: for debugging
+	cout<< "\tTank 3 Pressure: " << tank3Pressure << endl << endl; // DELETE: for debugging
 }
 
 void CANInterface::CANRead(int handle){
@@ -151,32 +160,20 @@ void CANInterface::CANRead(int handle){
 		//while loop that reads from Kvaser CAN buffer
 		do {
 			stat = canRead(handle, &id, &data, &dlc, &flags, &timeStamp);
-			cout<<endl<<stat<<endl;
-			/*Scan CAN IDs and call appropriate functions
-			switch (id){
-			case 258: htank(data); break;
-			case 776: batteryTemp(data); break; // IDs are Motorola Adjusted
-			case 520: highVolt(data); break; // IDs are Motorola Adjusted
-			case 430: twelveVolt(data); break; // IDs are Motorola Adjusted
-			}*/
+		
 			if(id==258){
-				htank(data);
-				cout<<"I found Htank data:"<<endl; // DELETE: for debugging
+				htank(data); //For Hydrogen Tanks Status (0x102)
 				}
-			else if(id==776){
-				batteryTemp(data);
-				cout<<"I found batteryTemp data:"<<endl; // DELETE: for debugging
+			else if(id==1072) {
+				batteryTemp(data); //BCM_Data1 (0x430): Battery temp
 			}
-			else if(id==520){
-				highVolt(data);
-				cout<<"I found highVolt data:"<<endl; // DELETE: for debugging
+			else if(id==1040) {
+				highVolt(data); //BCM_status (0x410): High Voltage Stuff: CSU LAN
 			}
-			else if(id==430){
-				twelveVolt(data);
-				cout<<"I found twelveVolt data:"<<endl; // DELETE: for debugging
+			else if(id==470) {
+				twelveVolt(data); //12-Volt System (0x1D6): CSU LAN
 			}
 
-		
 		} while (stat == canOK);
 			//Temporary code to print data pulled in dataArray (Also temporary for debugging)
 		this_thread::sleep_for(chrono::milliseconds(2000));
@@ -187,7 +184,6 @@ void CANInterface::run(int c){
 
 	thrd = thread([=](){
 		running = true;
-		
 		
 		int handle = openChannel(c); // Get handle for available CANbus port
 		
