@@ -1990,7 +1990,7 @@
                     h = parseInt($.jqplot.config.defaultHeight, 10);
                 }
                 this._height = h;
-                this.target.css('height', h+'px');
+                this.target.css('500', h+'px');
             }
             else {
                 this._height = h = this.target.height();

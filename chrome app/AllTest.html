@@ -1,22 +1,25 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
+    <!--<meta name="viewport" content="initial-scale=1.0, user-scalable=no">-->
     <meta charset='utf-8' />
     <!--Call JavaScript files-->
     <link href="css/main.css" rel='stylesheet' />
     <script src="js/jquery-2.1.0.min.js"></script>
-    <script src="js/jquery.js"></script>
-    <script src="js/AllTest.js"></script>
-    <script src="js/jquery.jqplot.js"></script>
+	<script src="js/jquery.js"></script>
+	<script src="js/AllTest.js"></script>
+	<!--<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true"></script>
+	<script src="js/GoogleMaps.js"></script>-->
+	<script src="js/jquery.jqplot.js"></script>
     <script src="js/shCore.js"></script>
     <script src="js/shBrushJScript.js"></script>
     <script src="js/shBrushXml.js"></script>
-    <script src="js/socket.io.js"></script>
-    <script src="js/IOHandler.js"></script>
-    <script src="js/BottomBarHandler.js"></script>
+	<script src ="js/socket.io.js"></script>
+	<script src ="js/IOHandler.js"></script>
+	<script src="js/BottomBarHandler.js"></script>
     <script src="js/EnergyTabHandlers.js"></script>
     <script src="js/HVACTabHandlers.js"></script>
-    <script src="js/jqplot.categoryAxisRenderer.js"></script>
+	<script src="js/jqplot.categoryAxisRenderer.js"></script>
 
 
     <title>jQuery Tabs Demo</title>
@@ -202,8 +205,8 @@
         }
 
         .TopTabImage_Settings {
-            width: 100px;
-            height: 100px;
+	    width: 100px;
+	    height: 100px;
             padding-top: 15%;
         }
 
@@ -230,10 +233,62 @@
             height: 100px;
             padding-top: 15%;
         }
+		
+		
+		
+		html, body, #map-canvas {
+        height: 100%;
+        margin: 0px;
+        padding: 0px
+      }
+      #panel {
+        position: absolute;
+        top: 5px;
+        left: 50%;
+        margin-left: -180px;
+        z-index: 5;
+        background-color: #fff;
+        padding: 5px;
+        border: 1px solid #999;
+      }
+    
+        #directions-panel {
+        height: 100%;
+        float: right;
+        width: 390px;
+        overflow: auto;
+      }
+
+      #map-canvas {
+        margin-right: 20%;
+      }
+
+      #control {
+        background: #fff;
+        padding: 5px;
+        font-size: 14px;
+        font-family: Arial;
+        border: 1px solid #ccc;
+        box-shadow: 0 2px 2px rgba(33, 33, 33, 0.4);
+        display: none;
+      }
+
+      @media print {
+        #map-canvas {
+          height: 100%;
+		  width: 70%
+          margin: 0;
+        }
+
+        #directions-panel {
+          float: none;
+          width: auto;
+        }
+      }
     </style>
 
 </head>
-<body style="overflow:hidden">
+<body style = "overflow:hidden">
 
     <ul class='TopTabs'>
         <li>
@@ -275,7 +330,7 @@
         </li>
     </ul>
 
-
+	
     <div class="Body_Container">
         <div id='HomeBody'>
 
@@ -311,8 +366,8 @@
                     </div>
                 </div>
             </div>
-
-            <div id="homePlot" style="width:500px; height:300px;"></div>
+			
+			<div id = "homePlot" style="width:500px; height:300px;"></div>
         </div>
 
 
@@ -321,7 +376,7 @@
             <div class='Sub_Tabs'>
                 <div class='Sub_Tab_Settings'>
                     <div class='Sub_Tab_Settings' id="Tab_1">
-
+                       
                     </div>
                     <br />
                     <br />
@@ -350,14 +405,14 @@
                     </div>
                 </div>
             </div>
-
+			
             <button class="Colors" id="HomeColor" style="width: 20%; top:5%; left:30%;">Home Color</button>
             <button class="Colors" id="SettingColor" style="width: 20%; top:20%; left:30%;">Setting Color</button>
             <button class="Colors" id="MusicColor" style="width: 20%; top:35%; left:30%;">Music Color</button>
             <button class="Colors" id="HVACColor" style="width: 20%; top:50%; left:30%;">HVAC Color</button>
             <button class="Colors" id="NavigateColor" style="width: 20%; top:65%; left:30%;">Navigate Color</button>
             <button class="Colors" id="DataColor" style="width: 20%; top:80%; left:30%;">Data Color</button>
-
+            
             <div class="Colors" id="Green1" style="width:10%; top:5%; left:50%; background-color: #99FF99;"></div>
             <div class="Colors" id="Green2" style="width:10%; top:5%; left:60%; background-color: #66FF66;"></div>
             <div class="Colors" id="Green3" style="width:10%; top:5%; left:70%; background-color: #33CC33;"></div>
@@ -387,7 +442,7 @@
             <div class="Colors" id="Orange3" style="width:10%; top:65%; left:70%; background-color: #FF9933;"></div>
             <div class="Colors" id="Orange4" style="width:10%; top:65%; left:80%; background-color: #FF9900;"></div>
             <div class="Colors" id="Orange5" style="width:10%; top:65%; left:90%; background-color: #CC6600;"></div>
-
+        
             <div class="Colors" id="Yellow1" style="width:10%; top:80%; left:50%; background-color: #FFFF99;"></div>
             <div class="Colors" id="Yellow2" style="width:10%; top:80%; left:60%; background-color: #FFFF66;"></div>
             <div class="Colors" id="Yellow3" style="width:10%; top:80%; left:70%; background-color: #FFFF00;"></div>
@@ -404,7 +459,7 @@
                 <div class='Sub_Tab_Music'>
                     <div class='Sub_Tab_Music' id="Tab_1">
                         <h2>Tab 1</h2>
-
+                   
                     </div>
                     <br />
                     <br />
@@ -439,10 +494,10 @@
         <div id='HVACBody'>
             <!--Buttons to activate HVAC controls-->
             <button id="AC_Button" type="button" style=" font-size: 12pt; border-radius:8%; width: 25%; height: 15%; position: absolute; left: 37.5%; top: 5%; font-size: 30pt; text-align:center">
-                A/C Max
+               A/C Max
             </button>
             <button id="Pannel_Button" type="button" style="border-radius: 8%; width: 25%; height: 15%; position: absolute; left: 20%; top: 25%; font-size: 18pt;">
-                <img style="height:100%; width:80%" src="images/Fan Symbols Upper Vents.png">
+               <img style="height:100%; width:80%" src="images/Fan Symbols Upper Vents.png">
             </button>
             <button id="Floor_Button" type="button" style="border-radius: 8%; width: 25%; height: 15%; position: absolute; left: 55%; top: 25%; font-size: 30pt;">
                 <img style="height:100%; width:80%" src="images/Fan Symbols Floor.png">
@@ -479,39 +534,16 @@
         </div>
 
         <div id='NavigationBody'>
-
-            <div class='Sub_Tabs'>
-                <div class='Sub_Tab_Nav'>
-                    <div class='Sub_Tab_Nav' id="Tab_1">
-                        <h2>Tab 1</h2>
-                    </div>
-                    <br />
-                    <br />
-                    <div class='Sub_Tab_Nav' id="Tab_2">
-                        <h2>Tab 2</h2>
-                    </div>
-                    <br />
-                    <br />
-                    <div class='Sub_Tab_Nav' id="Tab_3">
-                        <h2>Tab 3</h2>
-                    </div>
-                    <br />
-                    <br />
-                    <div class='Sub_Tab_Nav' id="Tab_4">
-                        <h2>Tab 4</h2>
-                    </div>
-                    <br />
-                    <br />
-                    <div class='Sub_Tab_Nav' id="Tab_5">
-                        <h2>Tab 5</h2>
-                    </div>
-                    <br />
-                    <br />
-                    <div class='Sub_Tab_Nav' id="Tab_6">
-                        <h2>Tab 6</h2>
-                    </div>
-                </div>
-            </div>
+			<div id="panel">
+				<b>Start: </b>
+				<input name="start" id="startStr" type="text" />
+				<b>End: </b>
+				<input name="end" id="endStr" type="text" />
+				<input name="buttonExecute" onclick="calcRoute(document.getElementById('startStr').value, document.getElementById('endStr').value)" type="button" value="Route" />
+			</div>
+			<div id="directions-panel"></div>
+			<div id="map-canvas"></div>
+                
         </div>
 
         <div id='DataBody'>
@@ -562,11 +594,11 @@
 
             </div>
 
-            <div id='graph0' style="height:40%; width:500px;">
+            <div id='graph0' style ="height:40%; width:500px;">
 
             </div>
 
-            <div id='graph1' style="height: 300px; width: 500px">
+            <div id='graph1' style = "height: 300px; width: 500px">
                 <!-- <canvas id="energy_canvas1" width="525" height="300"></canvas> -->
             </div>
 
@@ -593,7 +625,7 @@
             <div id="VolumeDown">
                 <img style="width:50px; height:50px; padding-top: 6%" src="images/Volume Down.png">
             </div>
-
+            
         </div>
         <div id="Battery">
             <div id="Battery_Text"></div>
@@ -601,7 +633,7 @@
         </div>
         <div id="Clock">
         </div>
-
+       
 
     </div>
 

@@ -106,7 +106,7 @@ socket.on('data', function(data){
 	HighVoltageCurrentData.push(data.HVamp);
     HighVoltageData.push(data.HVvolt);
     H2Pressure1.push(data.Tank1Pressure);
-    H2Pressure2.push(data.Tank2Pressure;
+    H2Pressure2.push(data.Tank2Pressure);
     H2Pressure3.push(data.Tank3Pressure);
     BatteryVoltageData.push(data.Twelvev);
 	BatteryTempData.push(data.highBatTemp)
@@ -182,7 +182,7 @@ newData = [10, 360, 35, 30, 32, 12, 50, 45, 48, 43, 98, 5];
 	HighVoltageCurrentData.push(data.HVamp);
     HighVoltageData.push(data.HVvolt);
     H2Pressure1.push(data.Tank1Pressure);
-    H2Pressure2.push(data.Tank2Pressure;
+    H2Pressure2.push(data.Tank2Pressure);
     H2Pressure3.push(data.Tank3Pressure);
     BatteryVoltageData.push(data.Twelvev);
 	BatteryTempData.push(data.highBatTemp)
