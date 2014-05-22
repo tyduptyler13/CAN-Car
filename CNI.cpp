@@ -17,17 +17,17 @@ void CNI::Init(Handle<Object>& exports){
 	it->SetClassName(String::NewSymbol("CNI"));
 	it->InstanceTemplate()->SetInternalFieldCount(1); //TODO add the rest.
 	NODE_SET_PROTOTYPE_METHOD(it, "getHighBatTemp", GetHighBatTemp);
-	NODE_SET_PROTOTYPE_METHOD(it, "getHighLowTemp", GetHighBatTemp);
-	NODE_SET_PROTOTYPE_METHOD(it, "getHVvolt", GetHighBatTemp);
-	NODE_SET_PROTOTYPE_METHOD(it, "getHVamp", GetHighBatTemp);
-	NODE_SET_PROTOTYPE_METHOD(it, "getHVpercent", GetHighBatTemp);
-	NODE_SET_PROTOTYPE_METHOD(it, "getTwelvev", GetHighBatTemp);
-	NODE_SET_PROTOTYPE_METHOD(it, "getTank1Temp", GetHighBatTemp);
-	NODE_SET_PROTOTYPE_METHOD(it, "getTank2Temp", GetHighBatTemp);
-	NODE_SET_PROTOTYPE_METHOD(it, "getTank3Temp", GetHighBatTemp);
-	NODE_SET_PROTOTYPE_METHOD(it, "getTank1Pressure", GetHighBatTemp);
-	NODE_SET_PROTOTYPE_METHOD(it, "getTank2Pressure", GetHighBatTemp);
-	NODE_SET_PROTOTYPE_METHOD(it, "getTank3Pressure", GetHighBatTemp);
+	NODE_SET_PROTOTYPE_METHOD(it, "getHighLowTemp", GetHighLowTemp);
+	NODE_SET_PROTOTYPE_METHOD(it, "getHVvolt", GetHVvolt);
+	NODE_SET_PROTOTYPE_METHOD(it, "getHVamp", GetHVamp);
+	NODE_SET_PROTOTYPE_METHOD(it, "getHVpercent", GetHVpercent);
+	NODE_SET_PROTOTYPE_METHOD(it, "getTwelvev", GetTwelvev);
+	NODE_SET_PROTOTYPE_METHOD(it, "getTank1Temp", GetTank1Temp);
+	NODE_SET_PROTOTYPE_METHOD(it, "getTank2Temp", GetTank2Temp);
+	NODE_SET_PROTOTYPE_METHOD(it, "getTank3Temp", GetTank3Temp);
+	NODE_SET_PROTOTYPE_METHOD(it, "getTank1Pressure", GetTank1Pressure);
+	NODE_SET_PROTOTYPE_METHOD(it, "getTank2Pressure", GetTank2Pressure);
+	NODE_SET_PROTOTYPE_METHOD(it, "getTank3Pressure", GetTank3Pressure);
 
 
 	constructor = Persistent<Function>::New(it->GetFunction());
