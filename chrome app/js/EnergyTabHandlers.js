@@ -83,11 +83,10 @@ var batteryVoltageSettings =
     pointStrokeColor: "#fff",
     data: BatteryVoltageData
 };
-	var socket = io.connect("http://localhost:8001");
 
-	
+
+//var socket = io.connect("http://localhost:8001");	
 //var socket;
-
 //io.sockets.on('connection', function(socket){
 //	socket.json.send('string');
 //	socket.json.send(5);
@@ -100,28 +99,8 @@ var batteryVoltageSettings =
 
 $(function(){
 
-socket.on('data', function(data){
-
-	
-	HighVoltageCurrentData.push(data.HVamp);
-    HighVoltageData.push(data.HVvolt);
-    H2Pressure1.push(data.Tank1Pressure);
-    H2Pressure2.push(data.Tank2Pressure);
-    H2Pressure3.push(data.Tank3Pressure);
-    BatteryVoltageData.push(data.Twelvev);
-	BatteryTempData.push(data.highBatTemp)
-    H2Temp1.push(data.Tank1Temp);
-    H2Temp2.push(data.Tank2Temp);
-    H2Temp3.push(data.Tank3Temp);
-    batteryPercentage = data.HVpercent;
-		// Do something with the data.
-		//ex: ui.setBatTemp(data.highBatTemp)
-	});
-
 //  socket = io.connect();
 //  socket.on()
-	
-
 
 
 plot1 = $.jqplot ('graph0', [[3,7,9,1,5,3,8,2,5]]);
@@ -175,24 +154,7 @@ newData = [10, 360, 35, 30, 32, 12, 50, 45, 48, 43, 98, 5];
         }
 
         //We need to once again send NewData to C++ function to put values in this will do it every couple of seconds
-    
-    socket.on('data', function(data){
 
-	
-	HighVoltageCurrentData.push(data.HVamp);
-    HighVoltageData.push(data.HVvolt);
-    H2Pressure1.push(data.Tank1Pressure);
-    H2Pressure2.push(data.Tank2Pressure);
-    H2Pressure3.push(data.Tank3Pressure);
-    BatteryVoltageData.push(data.Twelvev);
-	BatteryTempData.push(data.highBatTemp)
-    H2Temp1.push(data.Tank1Temp);
-    H2Temp2.push(data.Tank2Temp);
-    H2Temp3.push(data.Tank3Temp);
-    batteryPercentage = data.HVpercent;
-		// Do something with the data.
-		//ex: ui.setBatTemp(data.highBatTemp)
-	});
    
     if (BatteryClicked == true) {
     //    energyChart.toggleLine(batteryVoltageSettings);
