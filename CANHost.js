@@ -11,37 +11,36 @@ var cni = new addons.CNI(0);
 
 io.sockets.on('connection', function(socket){
 	console.log("Connection from app! Woo.");
-	
-	//Send stuff every 2 seconds.
-	setTimeout(function(){
-		//How to send messages
-		var obj = {
-				highBatTemp : cni.getHighBatTemp(),
-				lowBatTemp : cni.getLowBatTemp(),
-				HVvolt : cni.getHVvolt(),
-				HVamp : cni.getHVamp(),
-				HVpercent : cni.getHVpercent(),
-				Twelvev : cni.getTwelvev(),
-				Tank1Temp : cni.getTank1Temp(),
-				Tank2Temp : cni.getTank2Temp(),
-				Tank3Temp : cni.getTank3Temp(),
-				Tank1Pressure : cni.getTank1Pressure(),
-				Tank2Pressure : cni.getTank2Pressure(),
-				Tank3Pressure : cni.getTank3Pressure(),
 
-		};
-		
-		
-		socket.emit('data', obj);
-	}, 2000);
-	
-	//How to recieve messages
-	/*socket.on('getData', function(from, msg){
-	});*/
-	
 	socket.on('disconnect', function(){
 		console.log("App disconnected.");
 	});
-	
+
 });
+
+//Send stuff every 2 seconds.
+setInterval(function(){
+	//How to send messages
+	var obj = {
+			highBatTemp : cni.getHighBatTemp(),
+			lowBatTemp : cni.getLowBatTemp(),
+			HVvolt : cni.getHVvolt(),
+			HVamp : cni.getHVamp(),
+			HVpercent : cni.getHVpercent(),
+			Twelvev : cni.getTwelvev(),
+			Tank1Temp : cni.getTank1Temp(),
+			Tank2Temp : cni.getTank2Temp(),
+			Tank3Temp : cni.getTank3Temp(),
+			Tank1Pressure : cni.getTank1Pressure(),
+			Tank2Pressure : cni.getTank2Pressure(),
+			Tank3Pressure : cni.getTank3Pressure()
+	};
+
+	console.log("Polled data: ", obj);
+
+	console.log("Sending to connected clients.");
+
+	io.sockets.emit('data', obj);
+
+}, 2000);
 

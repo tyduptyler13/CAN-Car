@@ -15,7 +15,7 @@ void CNI::Init(Handle<Object>& exports){
 	Local<FunctionTemplate> it = FunctionTemplate::New(New);
 
 	it->SetClassName(String::NewSymbol("CNI"));
-	it->InstanceTemplate()->SetInternalFieldCount(1); //TODO add the rest.
+	it->InstanceTemplate()->SetInternalFieldCount(12);
 	NODE_SET_PROTOTYPE_METHOD(it, "getHighBatTemp", GetHighBatTemp);
 	NODE_SET_PROTOTYPE_METHOD(it, "getLowBatTemp", GetLowBatTemp);
 	NODE_SET_PROTOTYPE_METHOD(it, "getHVvolt", GetHVvolt);
@@ -94,132 +94,165 @@ Handle<Value> CNI::GetHighBatTemp(const Arguments &args){
 
 Handle<Value> CNI::GetLowBatTemp(const Arguments &args){
 
+	HandleScope scope;
+
 	if (args.Length() > 0){
-		return ThrowException(String::New("Unexpected arguments"));
+		ThrowException(Exception::TypeError(String::New("Unexpected arguments")));
+		return scope.Close(Undefined());
 	}
 
 	CNI* handle = Unwrap<CNI>(args.Holder());
 
-	return Number::New(handle->target->getLowBatTemp());
+	return scope.Close(Number::New(handle->target->getLowBatTemp()));
 
 }
 
 Handle<Value> CNI::GetHVvolt(const Arguments &args){
 
+	HandleScope scope;
+
 	if (args.Length() > 0){
-		return ThrowException(String::New("Unexpected arguments"));
+		ThrowException(Exception::TypeError(String::New("Unexpected arguments")));
+		return scope.Close(Undefined());
 	}
 
 	CNI* handle = Unwrap<CNI>(args.Holder());
 
-	return Number::New(handle->target->getHVvolt());
+	return scope.Close(Number::New(handle->target->getHVvolt()));
 
 }
 
 Handle<Value> CNI::GetHVamp(const Arguments &args){
 
+	HandleScope scope;
+
 	if (args.Length() > 0){
-		return ThrowException(String::New("Unexpected arguments"));
+		ThrowException(Exception::TypeError(String::New("Unexpected arguments")));
+		return scope.Close(Undefined());
 	}
 
 	CNI* handle = Unwrap<CNI>(args.Holder());
 
-	return Number::New(handle->target->getHVamp());
+	return scope.Close(Number::New(handle->target->getHVamp()));
 
 }
 
 Handle<Value> CNI::GetHVpercent(const Arguments &args){
 
+	HandleScope scope;
+
 	if (args.Length() > 0){
-		return ThrowException(String::New("Unexpected arguments"));
+		ThrowException(Exception::TypeError(String::New("Unexpected arguments")));
+		return scope.Close(Undefined());
 	}
 
 	CNI* handle = Unwrap<CNI>(args.Holder());
 
-	return Number::New(handle->target->getHVpercent());
+	return scope.Close(Number::New(handle->target->getHVpercent()));
 
 }
 
 Handle<Value> CNI::GetTwelvev(const Arguments &args){
 
+	HandleScope scope;
+
 	if (args.Length() > 0){
-		return ThrowException(String::New("Unexpected arguments"));
+		ThrowException(Exception::TypeError(String::New("Unexpected arguments")));
+		return scope.Close(Undefined());
 	}
 
 	CNI* handle = Unwrap<CNI>(args.Holder());
 
-	return Number::New(handle->target->getTwelvev());
+	return scope.Close(Number::New(handle->target->getTwelvev()));
 
 }
 
 Handle<Value> CNI::GetTank1Temp(const Arguments &args){
 
+	HandleScope scope;
+
 	if (args.Length() > 0){
-		return ThrowException(String::New("Unexpected arguments"));
+		ThrowException(Exception::TypeError(String::New("Unexpected arguments")));
+		return scope.Close(Undefined());
 	}
 
 	CNI* handle = Unwrap<CNI>(args.Holder());
 
-	return Number::New(handle->target->getTank1Temp());
+	return scope.Close(Number::New(handle->target->getTank1Temp()));
 
 }
 
 Handle<Value> CNI::GetTank2Temp(const Arguments &args){
 
+	HandleScope scope;
+
 	if (args.Length() > 0){
-		return ThrowException(String::New("Unexpected arguments"));
+		ThrowException(Exception::TypeError(String::New("Unexpected arguments")));
+		return scope.Close(Undefined());
 	}
 
 	CNI* handle = Unwrap<CNI>(args.Holder());
 
-	return Number::New(handle->target->getTank2Temp());
+	return scope.Close(Number::New(handle->target->getTank2Temp()));
 
 }
 
 Handle<Value> CNI::GetTank3Temp(const Arguments &args){
 
+	HandleScope scope;
+
 	if (args.Length() > 0){
-		return ThrowException(String::New("Unexpected arguments"));
+		ThrowException(Exception::TypeError(String::New("Unexpected arguments")));
+		return scope.Close(Undefined());
 	}
 
 	CNI* handle = Unwrap<CNI>(args.Holder());
 
-	return Number::New(handle->target->getTank3Temp());
+	return scope.Close(Number::New(handle->target->getTank3Temp()));
 
 }
 
 Handle<Value> CNI::GetTank1Pressure(const Arguments &args){
 
+	HandleScope scope;
+
 	if (args.Length() > 0){
-		return ThrowException(String::New("Unexpected arguments"));
+		ThrowException(Exception::TypeError(String::New("Unexpected arguments")));
+		return scope.Close(Undefined());
 	}
 
 	CNI* handle = Unwrap<CNI>(args.Holder());
 
-	return Number::New(handle->target->getTank1Pressure());
+	return scope.Close(Number::New(handle->target->getTank1Pressure()));
 
 }
 
 Handle<Value> CNI::GetTank2Pressure(const Arguments &args){
 
+	HandleScope scope;
+
 	if (args.Length() > 0){
-		return ThrowException(String::New("Unexpected arguments"));
+		ThrowException(Exception::TypeError(String::New("Unexpected arguments")));
+		return scope.Close(Undefined());
 	}
 
 	CNI* handle = Unwrap<CNI>(args.Holder());
 
-	return Number::New(handle->target->getTank2Pressure());
+	return scope.Close(Number::New(handle->target->getTank2Pressure()));
 
 }
 
 Handle<Value> CNI::GetTank3Pressure(const Arguments &args){
 
+	HandleScope scope;
+
 	if (args.Length() > 0){
-		return ThrowException(String::New("Unexpected arguments"));
+		ThrowException(Exception::TypeError(String::New("Unexpected arguments")));
+		return scope.Close(Undefined());
 	}
 
 	CNI* handle = Unwrap<CNI>(args.Holder());
 
-	return Number::New(handle->target->getTank3Pressure());
+	return scope.Close(Number::New(handle->target->getTank3Pressure()));
 
 }
