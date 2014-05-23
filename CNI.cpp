@@ -17,7 +17,7 @@ void CNI::Init(Handle<Object>& exports){
 	it->SetClassName(String::NewSymbol("CNI"));
 	it->InstanceTemplate()->SetInternalFieldCount(1); //TODO add the rest.
 	NODE_SET_PROTOTYPE_METHOD(it, "getHighBatTemp", GetHighBatTemp);
-	NODE_SET_PROTOTYPE_METHOD(it, "getHighLowTemp", GetHighLowTemp);
+	NODE_SET_PROTOTYPE_METHOD(it, "getLowBatTemp", GetLowBatTemp);
 	NODE_SET_PROTOTYPE_METHOD(it, "getHVvolt", GetHVvolt);
 	NODE_SET_PROTOTYPE_METHOD(it, "getHVamp", GetHVamp);
 	NODE_SET_PROTOTYPE_METHOD(it, "getHVpercent", GetHVpercent);
