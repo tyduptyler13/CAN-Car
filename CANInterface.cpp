@@ -165,7 +165,7 @@ void CANInterface::run(int c){
 	thrd = thread([=](){
 		running = true;
 		
-		//Following data was taken on March 15, 2014
+		/*Following data was taken on March 15, 2014
 		byte htank1Array[8] = { 105, 145, 117,  86,  39, 152, 152, 2 };
 		//Following data was taken on May 19, 2014
 		byte htank2Array[8] = { 126, 217, 149, 215, 147,  67, 106, 9 };
@@ -177,14 +177,14 @@ void CANInterface::run(int c){
 		htank(htank2Array);//TEST CODE: DELETE
 		batteryTemp(batTempArray);//TEST CODE: DELETE
 		highVolt(highVoltArray);//TEST CODE: DELETE
-		twelveVolt(twelveVoltArray);//TEST CODE: DELETE
+		twelveVolt(twelveVoltArray);//TEST CODE: DELETE*/
 
 		
-		/* UNDELETE THIS BLOCK OF CODE FOR NORMAL FUNCTION WITH CANBUS
+		// UNDELETE THIS BLOCK OF CODE FOR NORMAL FUNCTION WITH CANBUS
 		int handle = openChannel(c); // Get handle for available CANbus port
 		CANRead(handle); // Read data from CANbus
 		closeChannel(handle); // Clean up
-		UNDELETE THIS BLOCK OF CODE FOR NORMAL FUNCTION WITH CANBUS */
+		//UNDELETE THIS BLOCK OF CODE FOR NORMAL FUNCTION WITH CANBUS */
 	});
 
 }
