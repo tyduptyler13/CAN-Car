@@ -156,7 +156,7 @@ void CANInterface::CANRead(int handle){
 
 		} while (stat == canOK);
 			//Temporary code to print data pulled in dataArray (Also temporary for debugging)
-		this_thread::sleep_for(chrono::milliseconds(1000));
+		this_thread::sleep_for(chrono::milliseconds(500));
 	}
 }
 

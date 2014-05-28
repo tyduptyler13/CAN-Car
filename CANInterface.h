@@ -83,84 +83,84 @@ public:
 		return running;
 	}
 
-	double getHighBatTemp(){
+	double GetHighBatTemp(){
 		dataLock.lock();
 		double val = highBatTemp;
 		dataLock.unlock();
 		return val;
 	}
 
-	double getLowBatTemp(){
+	double GetLowBatTemp(){
 		dataLock.lock();
 		double val = lowBatTemp;
 		dataLock.unlock();
 		return val;
 	}
 
-	double getHVvolt(){
+	double GetHVvolt(){
 		dataLock.lock();
 		double val = HVvolt;
 		dataLock.unlock();
 		return val;
 	}
 
-	double getHVamp(){
+	double GetHVamp(){
 		dataLock.lock();
 		double val = HVamp;
 		dataLock.unlock();
 		return val;
 	}
 
-	double getHVpercent(){
+	double GetHVpercent(){
 		dataLock.lock();
 		double val = HVpercent;
 		dataLock.unlock();
 		return val;
 	}
 
-	double getTwelvev(){
+	double GetTwelvev(){
 		dataLock.lock();
 		double val = twelvev;
 		dataLock.unlock();
 		return val;
 	}
 
-	double getTank1Temp(){
+	double GetTank1Temp(){
 		dataLock.lock();
 		double val = tank1Temp;
 		dataLock.unlock();
 		return val;
 	}
 
-	double getTank2Temp(){
+	double GetTank2Temp(){
 		dataLock.lock();
 		double val = tank2Temp;
 		dataLock.unlock();
 		return val;
 	}
 
-	double getTank3Temp(){
+	double GetTank3Temp(){
 		dataLock.lock();
 		double val = tank3Temp;
 		dataLock.unlock();
 		return val;
 	}
 
-	double getTank1Pressure(){
+	double GetTank1Pressure(){
 		dataLock.lock();
 		double val = tank1Pressure;
 		dataLock.unlock();
 		return val;
 	}
 
-	double getTank2Pressure(){
+	double GetTank2Pressure(){
 		dataLock.lock();
 		double val = tank2Pressure;
 		dataLock.unlock();
 		return val;
 	}
 
-	double getTank3Pressure(){
+	double GetTank3Pressure(){
 		dataLock.lock();
 		double val = tank3Pressure;
 		dataLock.unlock();
