@@ -88,7 +88,7 @@ Handle<Value> CNI::GetHighBatTemp(const Arguments &args){
 
 	CNI* handle = Unwrap<CNI>(args.This());
 
-	return scope.Close(Number::New(handle->target->getHighBatTemp()));
+	return scope.Close(Number::New(handle->target->GetHighBatTemp()));
 
 }
 
@@ -103,7 +103,7 @@ Handle<Value> CNI::GetLowBatTemp(const Arguments &args){
 
 	CNI* handle = Unwrap<CNI>(args.Holder());
 
-	return scope.Close(Number::New(handle->target->getLowBatTemp()));
+	return scope.Close(Number::New(handle->target->GetLowBatTemp()));
 
 }
 
@@ -118,7 +118,7 @@ Handle<Value> CNI::GetHVvolt(const Arguments &args){
 
 	CNI* handle = Unwrap<CNI>(args.Holder());
 
-	return scope.Close(Number::New(handle->target->getHVvolt()));
+	return scope.Close(Number::New(handle->target->GetHVvolt()));
 
 }
 
@@ -133,7 +133,7 @@ Handle<Value> CNI::GetHVamp(const Arguments &args){
 
 	CNI* handle = Unwrap<CNI>(args.Holder());
 
-	return scope.Close(Number::New(handle->target->getHVamp()));
+	return scope.Close(Number::New(handle->target->GetHVamp()));
 
 }
 
@@ -148,7 +148,7 @@ Handle<Value> CNI::GetHVpercent(const Arguments &args){
 
 	CNI* handle = Unwrap<CNI>(args.Holder());
 
-	return scope.Close(Number::New(handle->target->getHVpercent()));
+	return scope.Close(Number::New(handle->target->GetHVpercent()));
 
 }
 
@@ -163,7 +163,7 @@ Handle<Value> CNI::GetTwelvev(const Arguments &args){
 
 	CNI* handle = Unwrap<CNI>(args.Holder());
 
-	return scope.Close(Number::New(handle->target->getTwelvev()));
+	return scope.Close(Number::New(handle->target->GetTwelvev()));
 
 }
 
@@ -178,7 +178,7 @@ Handle<Value> CNI::GetTank1Temp(const Arguments &args){
 
 	CNI* handle = Unwrap<CNI>(args.Holder());
 
-	return scope.Close(Number::New(handle->target->getTank1Temp()));
+	return scope.Close(Number::New(handle->target->GetTank1Temp()));
 
 }
 
@@ -193,7 +193,7 @@ Handle<Value> CNI::GetTank2Temp(const Arguments &args){
 
 	CNI* handle = Unwrap<CNI>(args.Holder());
 
-	return scope.Close(Number::New(handle->target->getTank2Temp()));
+	return scope.Close(Number::New(handle->target->GetTank2Temp()));
 
 }
 
@@ -208,7 +208,7 @@ Handle<Value> CNI::GetTank3Temp(const Arguments &args){
 
 	CNI* handle = Unwrap<CNI>(args.Holder());
 
-	return scope.Close(Number::New(handle->target->getTank3Temp()));
+	return scope.Close(Number::New(handle->target->GetTank3Temp()));
 
 }
 
@@ -223,7 +223,7 @@ Handle<Value> CNI::GetTank1Pressure(const Arguments &args){
 
 	CNI* handle = Unwrap<CNI>(args.Holder());
 
-	return scope.Close(Number::New(handle->target->getTank1Pressure()));
+	return scope.Close(Number::New(handle->target->GetTank1Pressure()));
 
 }
 
@@ -238,7 +238,7 @@ Handle<Value> CNI::GetTank2Pressure(const Arguments &args){
 
 	CNI* handle = Unwrap<CNI>(args.Holder());
 
-	return scope.Close(Number::New(handle->target->getTank2Pressure()));
+	return scope.Close(Number::New(handle->target->GetTank2Pressure()));
 
 }
 
@@ -253,6 +253,6 @@ Handle<Value> CNI::GetTank3Pressure(const Arguments &args){
 
 	CNI* handle = Unwrap<CNI>(args.Holder());
 
-	return scope.Close(Number::New(handle->target->getTank3Pressure()));
+	return scope.Close(Number::New(handle->target->GetTank3Pressure()));
 
 }
