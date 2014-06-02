@@ -18,6 +18,12 @@ io.sockets.on('connection', function(socket){
 
 });
 
+chrome.app.window.onBoundsChanged.addListener(function(){
+	  if(!chrome.app.window.isFullscreen()){
+	    chrome.app.window.fullscreen();
+	  }
+	});
+
 //Send stuff every 2 seconds.
 setInterval(function(){
 	//How to send messages
