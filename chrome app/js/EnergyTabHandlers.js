@@ -105,7 +105,11 @@ $(function(){
 
 plot1 = $.jqplot ('graph0', [[3,7,9,1,5,3,8,2,5]]);
 
-
+$('#resizable2').bind('resizestop', function(event, ui) {
+    $('#chart2').height($('#resizable2').height()*0.96);
+    $('#chart2').width($('#resizable2').width()*0.96);
+    plot2.replot({resetAxes:true});
+});
 
 
 //Right here we need to send NewData to the C++ function put the values in it then read it back this is initial values on start up
