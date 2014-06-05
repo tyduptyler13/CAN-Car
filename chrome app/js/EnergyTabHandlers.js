@@ -4,7 +4,9 @@
 
 //var energyChart = new EnergyChart("energy_canvas0");
 //var energyChart1 = new EnergyChart("energy_canvas1");
-//var plot1;
+
+var plot0;
+var plot1;
 //Storing the Data from Can C++
 var HighVoltageCurrentData = new Array();
 var HighVoltageData = new Array();
@@ -29,84 +31,23 @@ var BatteryClicked;
 var H2Clicked;
 var EcoCarClicked;
 
-var highVoltageSettings =
-{
-        name: "High_Voltage",
-        fillColor: "rgba(220,100,100,0.2)", //Red
-        strokeColor: "rgba(220,100,100,1)",
-        pointColor: "rgba(220,100,100,1)",
-        pointStrokeColor: "#fff",
-        data: HighVoltageData
-    };
-var highVoltageCurrentSettings =
-{
-    name: "High_Voltage_Current",
-    fillColor: "rgba(100,100,220,0.2)", //Blue
-    strokeColor: "rgba(100,100,220,1)",
-    pointColor: "rgba(100,100,220,1)",
-    pointStrokeColor: "#fff",
-    data: HighVoltageCurrentData
-};
-var hydrogenPressureSettings =
-{
-    name: "Hydrogen_Pressure",
-    fillColor: "rgba(220,100,100,0.2)", //Red
-    strokeColor: "rgba(220,100,100,1)",
-    pointColor: "rgba(220,100,100,1)",
-    pointStrokeColor: "#fff",
-    data: H2Pressure1
-};
-var hydrogenTempSettings =
-{
-    name: "Hydrogen_Temp",
-    fillColor: "rgba(100,100,220,0.2)", //Blue
-    strokeColor: "rgba(100,100,220,1)",
-    pointColor: "rgba(100,100,220,1)",
-    pointStrokeColor: "#fff",
-    data: H2Temp1
-};
-var batteryTempSettings =
-{
-    name: "Battery_Temp",
-    fillColor: "rgba(220,220,100,0.2)", //Yellow
-    strokeColor: "rgba(220,220,100,1)",
-    pointColor: "rgba(220,220,100,1)",
-    pointStrokeColor: "#fff",
-    data: BatteryTempData
-};
-var batteryVoltageSettings =
-{
-    name: "Battery_Voltage",
-    fillColor: "rgba(220,100,220,0.2)", //Purple
-    strokeColor: "rgba(220,100,220,1)",
-    pointColor: "rgba(220,100,220,1)",
-    pointStrokeColor: "#fff",
-    data: BatteryVoltageData
-};
+HighVoltageData = [0];
+HighVoltageCurrentData = [0];
+H2Pressure1 = [0];
+H2Temp1 = [0];
+BatteryVoltageData = [0];
+BatteryTempData = [0];
 
-
-//var socket = io.connect("http://localhost:8001");	
-//var socket;
-//io.sockets.on('connection', function(socket){
-//	socket.json.send('string');
-//	socket.json.send(5);
-//	socket.json.send([
-//		{},{}
-//	]);
-//});
-
-//Initially set the Arrays for the Charts
 
 $(function(){
 
-//  socket = io.connect();
-//  socket.on()
-
-
-plot1 = $.jqplot ('graph0', [[3,7,9,1,5,3,8,2,5]]);
-
-
-
+//if(HighVoltageData.length > 0){
+	//plot0 = new RGraph.Line('energy_canvas0', HighVoltageData).draw();
+	plot0 = new RGraph.Line('energy_canvas0', HighVoltageData).draw();
+//};
+//if(HighVoltageCurrentData.length > 0){
+	plot1 = new RGraph.Line('energy_canvas1', HighVoltageCurrentData).draw();
+//};
 
 //Right here we need to send NewData to the C++ function put the values in it then read it back this is initial values on start up
 newData = [10, 360, 35, 30, 32, 12, 50, 45, 48, 43, 98, 5];
@@ -161,12 +102,35 @@ newData = [10, 360, 35, 30, 32, 12, 50, 45, 48, 43, 98, 5];
     //    energyChart1.toggleLine(batteryTempSettings);
         document.getElementById("data0").innerHTML = ("Battery Voltage: " + BatteryVoltageData[BatteryVoltageData.length - 1] + " V");
         document.getElementById("data1").innerHTML = ("Battery Temperature: " + BatteryTempData[BatteryTempData.length - 1] + " C");
+		//if(BatteryVoltageData.length > 0){
+			//RGraph.ObjectRegistry.Remove(plot0);
+			RGraph.clear(document.getElementById('energy_canvas0'));
+			//plot0 = new RGraph.Line('energy_canvas0', [6,7,8,9]).draw();
+			plot0 = new RGraph.Line('energy_canvas0', BatteryVoltageData).draw();
+		//};
+		//if(BatteryTempData.length > 0){
+			//RGraph.ObjectRegistry.Remove(plot1);
+			RGraph.clear(document.getElementById('energy_canvas1'));
+			//plot1 = new RGraph.Line('energy_canvas1', [6,7,8,9]).draw();
+			plot1 = new RGraph.Line('energy_canvas1', BatteryTempData).draw();
+		//};
     }
    else if (H2Clicked == true) {
     //    energyChart.toggleLine(hydrogenTempSettings);
     //    energyChart1.toggleLine(hydrogenPressureSettings);
         document.getElementById("data0").innerHTML = ("Hydrogen Temperature: " + H2Temp1[H2Temp1.length - 1] + " C");
         document.getElementById("data1").innerHTML = ("Hydrogen Pressure: " + H2Pressure1[H2Pressure1.length - 1] + " psi");
+		//if(H2Temp.length > 0){
+			//plot0 = RGraph.Line('energy_canvas0', H2Temp1).draw();
+		RGraph.clear(document.getElementById('energy_canvas0'));
+		plot0 = new RGraph.Line('energy_canvas0', H2Temp1).draw();		
+		//};
+		//if(H2Pressure.length > 0){
+          //  plot1 = RGraph.Line('energy_canvas1',H2Pressure1).draw();
+			//plot1 = RGraph.Gauge('energy_canvas1', H2Pressure1).draw();
+			RGraph.clear(document.getElementById('energy_canvas1'));
+			plot1 = new RGraph.Line('energy_canvas1', H2Pressure1).draw();			
+		//};
     }
     else if (EcoCarClicked == true) {
         document.getElementById("data0").innerHTML = ("H2 Pressure Tank1: " + H2Pressure1[H2Pressure1.length - 1] + " psi");
@@ -176,14 +140,27 @@ newData = [10, 360, 35, 30, 32, 12, 50, 45, 48, 43, 98, 5];
         document.getElementById("data5").innerHTML = ("H2 Temp Tank2: " + H2Temp2[H2Temp2.length - 1] + " C");
         document.getElementById("data1").innerHTML = ("H2 Temp Tank3: " + H2Temp3[H2Temp2.length - 1] + " C");
         document.getElementById("data6").innerHTML = ("Fuel Cell Current: " + FuelCellCurrent + " A");
+		
     }
     else {
     //    energyChart.toggleLine(highVoltageSettings);
     //    energyChart1.toggleLine(highVoltageCurrentSettings);
         document.getElementById("data0").innerHTML = ("High Voltage: " + HighVoltageData[HighVoltageData.length - 1] + " V");
         document.getElementById("data1").innerHTML = ("High Voltage Current: " + HighVoltageCurrentData[HighVoltageCurrentData.length - 1] + " A");
+		//if(HighVoltageData.length > 0){
+			RGraph.clear(document.getElementById('energy_canvas0'));
+			plot0 = new RGraph.Line('energy_canvas0', HighVoltageData).draw();
+			//plot0 = new RGraph.Line('energy_canvas0', HighVoltageData).draw();
+
+		//};
+		//if(HighVoltageCurrentData.length > 0){
+			RGraph.clear(document.getElementById('energy_canvas1'));
+			plot1 = new RGraph.Line('energy_canvas1', HighVoltageCurrentData).draw();
+			//plot1 = new RGraph.Line('energy_canvas1', HighVoltageCurrentData).draw();
+
+		//};
     }
-},5000);
+},2000);
 
 //Create the different chart colors and data
 
@@ -210,6 +187,10 @@ document.getElementById("data1").innerHTML = ("High Voltage Current: " + HighVol
 
     //    energyChart.toggleLine(highVoltageSettings);
     //    energyChart1.toggleLine(highVoltageCurrentSettings);
+		RGraph.clear(document.getElementById('energy_canvas0'));
+		plot0 = new RGraph.Line('energy_canvas0', HighVoltageData).draw();
+		RGraph.clear(document.getElementById('energy_canvas1'));
+		plot1 = new RGraph.Line('energy_canvas1', HighVoltageCurrentData).draw();
         document.getElementById("data0").innerHTML = ("High Voltage: " + HighVoltageData[HighVoltageData.length - 1] + " V");
         document.getElementById("data1").innerHTML = ("High Voltage Current: " + HighVoltageCurrentData[HighVoltageCurrentData.length - 1] + " A");
 
@@ -231,6 +212,14 @@ document.getElementById("data1").innerHTML = ("High Voltage Current: " + HighVol
 
     //    energyChart.toggleLine(batteryVoltageSettings);
     //    energyChart1.toggleLine(batteryTempSettings);
+		//plot0.original_data = [1,2,3,4];
+		//plot0.draw();
+		//plot1.original_data = [1,2,3,4];
+		//plot1.draw();
+		RGraph.clear(document.getElementById('energy_canvas0'));
+		plot0 = new RGraph.Line('energy_canvas0', BatteryVoltageData).draw();
+		RGraph.clear(document.getElementById('energy_canvas1'));
+		plot1 = new RGraph.Line('energy_canvas1', BatteryTempData).draw();
         document.getElementById("data0").innerHTML = ("Battery Voltage: " + BatteryVoltageData[BatteryVoltageData.length - 1] + " V");
         document.getElementById("data1").innerHTML = ("Battery Temperature: " + BatteryTempData[BatteryTempData.length - 1] + " C");
     });
@@ -251,6 +240,11 @@ document.getElementById("data1").innerHTML = ("High Voltage Current: " + HighVol
 
     //    energyChart.toggleLine(hydrogenTempSettings);
     //    energyChart1.toggleLine(hydrogenPressureSettings);
+	
+		RGraph.clear(document.getElementById('energy_canvas0'));
+		plot0 = new RGraph.Line('energy_canvas0', H2Temp1).draw();
+		RGraph.clear(document.getElementById('energy_canvas1'));
+		plot1 = new RGraph.Line('energy_canvas1', H2Pressure1).draw();
         document.getElementById("data0").innerHTML = ("Hydrogen Temperature: " + H2Temp1[H2Temp1.length - 1] + " C");
         document.getElementById("data1").innerHTML = ("Hydrogen Pressure: " + H2Pressure1[H2Pressure1.length - 1] + " psi");
     });

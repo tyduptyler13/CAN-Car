@@ -18,12 +18,6 @@ io.sockets.on('connection', function(socket){
 
 });
 
-chrome.app.window.onBoundsChanged.addListener(function(){
-	  if(!chrome.app.window.isFullscreen()){
-	    chrome.app.window.fullscreen();
-	  }
-	});
-
 //Send stuff every 2 seconds.
 setInterval(function(){
 	//How to send messages
@@ -47,6 +41,13 @@ setInterval(function(){
 	console.log("Sending to connected clients.");
 
 	io.sockets.emit('data', obj);
-
 }, 2000);
+
+io.sockets.on('HVACdata',function(HVACdata){
+		cni.setAC(HVACdata.AC);
+		cni.setPannel(HVACdata.Pannel);
+		cni.setPannelFloor(HVACdata.PannelFloor);
+		cni.setDefrost(HVACdata.Defrost);
+		cni.setFanLevel(HVACdata.FanLevel)
+});
 

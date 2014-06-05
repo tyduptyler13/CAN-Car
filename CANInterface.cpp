@@ -76,7 +76,8 @@ void CANInterface::highVolt(byte data[8]){
 
 	//parse out the data we need from the message
 	dataLock.lock();
-	HVvolt = parse(56, 12, data)*0.25; // HV_volt
+	//WORKING HERE. DELETE WHEN DONE
+	HVvolt = parse(56, 8, data)*0.25; // HV_volt
 	HVamp  = parse(40, 16, data)*0.025 - 1000; // HV_amp
 	HVpercent = parse(24, 8, data)*0.5; // HV_percent
 	dataLock.unlock();
@@ -127,6 +128,21 @@ void CANInterface::htank(byte data[8]){
 	cout<< "\tTank 2 Pressure: " << tank2Pressure << endl; // DELETE: for debugging
 	cout<< "\tTank 3 Pressure: " << tank3Pressure << endl << endl; // DELETE: for debugging
 }
+/* Backup HV voltage Signal 
+// High Voltage Value from Fuel Cell 3 (0x221)
+void CANInterface::fcVolt(byte data[8]) {
+	byte newData[8];
+	for(int i = 0; i < 8; i++) {
+		newData[7-i] = data[i];
+	}
+
+	dataLock.lock();
+	HVvolt = parse(16, 16, data)*0.0115527; // HV_volt
+	dataLock.unlock();
+	
+	cout<<"Fuel Cell Voltage (High Voltage Voltage:" << endl;
+	cout<< "\tHighVoltage Voltage: " <<HVvolt << endl; // DELETE: for debugging
+}*/
 
 void CANInterface::CANRead(int handle){
 
@@ -153,6 +169,10 @@ void CANInterface::CANRead(int handle){
 			else if(id==470) {
 				twelveVolt(data); //12-Volt System (0x1D6): CSU LAN
 			}
+			/* Backup HV voltage signal (if needed)
+			else if(id==545) {
+				fcVolt(data); //FC_Voltage2: CSU LAN
+			}*/
 
 		} while (stat == canOK);
 			//Temporary code to print data pulled in dataArray (Also temporary for debugging)

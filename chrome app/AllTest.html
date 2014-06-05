@@ -6,20 +6,18 @@
     <!--Call JavaScript files-->
     <link href="css/main.css" rel='stylesheet' />
     <script src="js/jquery-2.1.0.min.js"></script>
-	<script src="js/jquery.js"></script>
 	<script src="js/AllTest.js"></script>
 	<!--<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true"></script>
 	<script src="js/GoogleMaps.js"></script>-->
-	<script src="js/jquery.jqplot.js"></script>
-    <script src="js/shCore.js"></script>
-    <script src="js/shBrushJScript.js"></script>
-    <script src="js/shBrushXml.js"></script>
+    <script src="js/RGraph.common.core.js" ></script>
+    <script src="js/RGraph.line.js"></script>
+	<script src="js/RGraph.gauge.js"></script>
+	<!--<script src ="js/plotThis.js"></script>-->
 	<script src ="js/socket.io.js"></script>
 	<script src ="js/IOHandler.js"></script>
 	<script src="js/BottomBarHandler.js"></script>
     <script src="js/EnergyTabHandlers.js"></script>
     <script src="js/HVACTabHandlers.js"></script>
-	<script src="js/jqplot.categoryAxisRenderer.js"></script>
 
 
     <title>jQuery Tabs Demo</title>
@@ -289,7 +287,6 @@
 
 </head>
 <body style = "overflow:hidden">
-
     <ul class='TopTabs'>
         <li>
             <a href='#HomeBody' class="HomeTab">
@@ -332,6 +329,7 @@
 
 	
     <div class="Body_Container">
+
         <div id='HomeBody'>
 
             <div class='Sub_Tabs'>
@@ -594,12 +592,12 @@
 
             </div>
 
-            <div id='graph0' style ="height:40%; width:500px;">
-
+            <div id='graph0'>
+			    <canvas id="energy_canvas0" width="800" height="150"></canvas>
             </div>
 
-            <div id='graph1' style = "height: 300px; width: 500px">
-                <!-- <canvas id="energy_canvas1" width="525" height="300"></canvas> -->
+            <div id='graph1'>
+                <canvas id="energy_canvas1" width="800" height="150"></canvas>
             </div>
 
         </div>

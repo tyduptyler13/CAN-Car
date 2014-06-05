@@ -28,6 +28,9 @@ private:
 	const double temp_offset;
 	const double pressure_factor;
 	const double pressure_offset;
+	
+	//bools for turning on AC
+	bool ac_on;
 
 	//Thread variables
 	volatile bool running;
@@ -51,7 +54,7 @@ private:
 
 	//BCM_Data1 (0x430): Battery temp
 	void batteryTemp(byte data[8]);
-
+s
 	//BCM_status (0x410): High Voltage Stuff: CSU LAN
 	void highVolt(byte data[8]);
 
@@ -60,7 +63,10 @@ private:
 
 	//for Hydrogen Tanks Status (0x102)
 	void htank(byte data[8]);
-
+	
+	//for High Voltage Value from Fuel Cell 3 (0x221)
+	//void fcVolt(byte data[8]); // UNCOMMENT IF CHANGED
+	
 	void CANRead(int handle);
 
 	void run(int channel);
@@ -82,7 +88,14 @@ public:
 	bool isStopped(){
 		return running;
 	}
+	// set function to pull from JavaScript
+	void SetAC(bool ACon){
+		dataLock.lock();
+		ac_on = ACon;
+		dataLock.unlock();
+	}
 
+	
 	double GetHighBatTemp(){
 		dataLock.lock();
 		double val = highBatTemp;

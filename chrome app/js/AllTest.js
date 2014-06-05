@@ -2,12 +2,6 @@ var $active;
 var $content;
 var $links;
 $(function(){ 
-	chrome.app.window.onBoundsChanged.addListener(function(){
-		  if(!chrome.app.window.isFullscreen()){
-		    chrome.app.window.fullscreen();
-		  }
-		});
-	
  // Wait until the DOM has loaded before querying the document
         $(document).ready(function () {
             $('ul.TopTabs').each(function () {

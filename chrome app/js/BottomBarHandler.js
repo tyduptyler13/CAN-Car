@@ -11,7 +11,6 @@ $(function(){
 
 
 setInterval(function () {
-batteryPercentage = 98;
 if (batteryPercentage >= 95) {
         document.getElementById("batteryImage").src = "images/Battery-Levels-100-PercentT.png";
 }
