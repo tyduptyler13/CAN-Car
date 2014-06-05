@@ -54,7 +54,7 @@ private:
 
 	//BCM_Data1 (0x430): Battery temp
 	void batteryTemp(byte data[8]);
-s
+
 	//BCM_status (0x410): High Voltage Stuff: CSU LAN
 	void highVolt(byte data[8]);
 

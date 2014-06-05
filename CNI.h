@@ -30,6 +30,7 @@ private:
 	static v8::Handle<v8::Value> GetTank1Pressure(const v8::Arguments &args);
 	static v8::Handle<v8::Value> GetTank2Pressure(const v8::Arguments &args);
 	static v8::Handle<v8::Value> GetTank3Pressure(const v8::Arguments &args);
+	static v8::Handle<v8::Value> setAC(const v8::Arguments &args);
 
 
 public:
