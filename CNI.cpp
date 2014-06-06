@@ -15,7 +15,7 @@ void CNI::Init(Handle<Object>& exports){
 	Local<FunctionTemplate> it = FunctionTemplate::New(New);
 
 	it->SetClassName(String::NewSymbol("CNI"));
-	it->InstanceTemplate()->SetInternalFieldCount(12);
+	it->InstanceTemplate()->SetInternalFieldCount(13);
 	NODE_SET_PROTOTYPE_METHOD(it, "getHighBatTemp", GetHighBatTemp);
 	NODE_SET_PROTOTYPE_METHOD(it, "getLowBatTemp", GetLowBatTemp);
 	NODE_SET_PROTOTYPE_METHOD(it, "getHVvolt", GetHVvolt);
@@ -262,13 +262,20 @@ Handle<Value> CNI::SetAC(const Arguments &args){
 
 	HandleScope scope;
 
-	if (args.Length() > 0){
-		ThrowException(Exception::TypeError(String::New("Unexpected arguments")));
+	if (args.Length() == 0){
+		ThrowException(Exception::TypeError(String::New("Expected at least 1 argument")));
 		return scope.Close(Undefined());
-	}
-
+	} else if(args.Length() > 1){
+		ThrowException(Exception::TypeError(String::New("Expected only one argument")));
+		return scope.Close(Undefined());
+	} else { //We have only one arg.
+		if (!args[0]->IsNumber()){
+			ThrowException(Exception::TypeError(String::New("Expected 1 argument of type Number")));
+			return scope.Close(Undefined());
+		}
+	
 	CNI* handle = Unwrap<CNI>(args.Holder());
 
-	return scope.Close(Number::New(SetAC()->target->handle));
-
+	return scope.Close(Number::New(handle->target->setAC()));
 }
+//If we get here then all the function checks are complete. Now do stuff.
