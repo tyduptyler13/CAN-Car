@@ -30,7 +30,7 @@ private:
 	const double pressure_offset;
 	
 	//bools for turning on AC
-	bool ac_on;
+	volatile bool ac_on;
 
 	//Thread variables
 	volatile bool running;

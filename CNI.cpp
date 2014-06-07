@@ -28,7 +28,7 @@ void CNI::Init(Handle<Object>& exports){
 	NODE_SET_PROTOTYPE_METHOD(it, "getTank1Pressure", GetTank1Pressure);
 	NODE_SET_PROTOTYPE_METHOD(it, "getTank2Pressure", GetTank2Pressure);
 	NODE_SET_PROTOTYPE_METHOD(it, "getTank3Pressure", GetTank3Pressure);
-	NODE_SET_PROTOTYPE_METHOD(it, "setAC", SetAC); //set HVAC on/off
+	NODE_SET_PROTOTYPE_METHOD(it, "setAC", setAC); //set HVAC on/off
 
 
 	constructor = Persistent<Function>::New(it->GetFunction());
@@ -258,7 +258,7 @@ Handle<Value> CNI::GetTank3Pressure(const Arguments &args){
 
 }
 // HVAC call
-Handle<Value> CNI::SetAC(const Arguments &args){
+Handle<Value> CNI::setAC(const Arguments &args){
 
 	HandleScope scope;
 
